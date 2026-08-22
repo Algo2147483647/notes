@@ -135,9 +135,11 @@ An ECA rule or an ECA graph exists in two different phases: the **definition pha
 
 #### Instance idempotency key
 
-The **Instance Idempotency Key** is the deterministic key used to identify one unique ECA graph instance. It is generated at runtime according to the key-generation rule defined in the definition ECA graph. The key is usually composed of stable attributes carried by the triggering event or derived from the execution context. The purpose of the instance idempotency key is to guarantee **graph-level idempotency**. For the same logical transition request, whether the system receives the trigger once or multiple times, it should create or resume exactly one graph instance and produce only one correct transition effect. This prevents duplicated state transitions, repeated reward issuance, duplicated points crediting, repeated message sending, or inconsistent graph execution state. 
+The Instance Idempotency Key is a deterministic identifier for a unique runtime instance of an ECA graph. It is generated at runtime according to the key-generation rule defined in the definition ECA graph. It is generated according to the key-generation rule defined by the graph and is typically derived from stable attributes of the triggering event or execution context.
 
-The key should be designed according to the following principles:
+Its purpose is to provide **graph-level idempotency**. Repeated delivery of the same logical trigger must resolve to the same graph instance rather than create duplicates. This ensures that the graph produces a single consistent execution outcome and prevents duplicate state transitions, rewards, points, messages, or other effects.
+
+The key should follow these principles:
 
 1. **Deterministic**: The same logical trigger must always produce the same key.
 2. **Business-stable**: The key should be based on stable business identifiers, such as user ID, order ID, campaign ID, task ID, callback ID, or transaction ID.
@@ -147,14 +149,20 @@ The key should be designed according to the following principles:
 
 #### Multiple Instantiations: Rounds
 
-To support multiple instantiations and executions of a single definition ECA Graph in a instantiating idempotency key, we introduce a instantiating idempotency key dimension, **Rounds**, which identifies the specific execution round of the ECA graph within the instantiating idempotency key. In addition, the maximum number of execution rounds can be defined as a property of the ECA graph.
+A **Round** identifies a distinct execution of the same ECA graph for the same business context. It allows a business object associated with the same base idempotency identity to instantiate and execute the graph multiple times without treating later executions as duplicates. The round number therefore becomes part of the instance identity:
+
+```
+Instance Idempotency Key = Base Idempotency Key + Round
+```
+
+The ECA graph definition may also specify a maximum number of rounds to limit how many times the same business context can instantiate the graph.
 
 ### Execution flow
 
-1. **Triggering and Executable Frontier Selection**: When the system receives an event, it first retrieves all ECA nodes that are currently in the executable state. Then, based on the trigger conditions, it traverses these nodes to select the first executable node in each node path and aggregates them into a frontier node set. The core purpose of this step is to focus on the starting of each path, avoiding repeated processing of nodes within the same path, thereby ensuring process efficiency and logical clarity.
-2. **Iterate over Frontier Nodes and Execute Calculation Logic**: The system processes each node in the frontier node set sequentially. For each frontier node, the rule engine is first invoked to execute the calculation logic for the node—this is the core computational step, determining the that the node should receive. Next, the system checks whether the node has been completed: if the node is not completed, subsequent processing is skipped, and the system moves directly to the next frontier node; if the node is completed, it proceeds to handle subsequent nodes, advancing the node status forward.
-3. **Recursive Processing of Subsequent nodes (Core Logic)**: After the current frontier node is completed, the system retrieves all nodes associated as its subsequent nodes and evaluates each one. It first checks whether the subsequent node currently meets its start conditions; if it cannot start, it is temporarily skipped. If it can start, its status is updated to the executable state and the system immediately executes the full “node calculation logic” recursively for this node. This loop continues, forming a recursive processing mechanism that allows the node chain to automatically and coherently advance step by step until the path ends.
-4. **Process Completion**: Once the last node in the frontier node set has been processed—that is, all starting nodes and their triggered subsequent recursive chains have completed calculation and status evaluation—the entire calculation process concludes. At this point, the system has completed all node computations and status updates driven by the triggering event for this round.
+1. **Select the Executable Frontier**: When an event is received, the system identifies nodes that are currently eligible for execution. For each execution path, it selects the first eligible node and adds it to the **frontier set**. This ensures that processing begins from the earliest executable point on each path without redundantly evaluating downstream nodes.
+2. **Execute Frontier Nodes**: The system processes each node in the frontier set by invoking the rule engine to evaluate its logic and update its runtime state. If a node is not completed after evaluation, no further propagation occurs along that path. If it is completed, the system proceeds to evaluate its successor nodes.
+3. **Propagate to Successor Nodes**: For each successor, the system checks whether its start conditions are satisfied. Eligible successors are transitioned to the executable state and evaluated immediately. When such a node completes, the same process is recursively applied to its successors, allowing execution to propagate through the graph until no further nodes can advance.
+4. **Complete the Execution Cycle**: The execution cycle ends when all frontier nodes and any successor chains activated from them have been processed, and no additional nodes are eligible to advance.
 
 ![202512310127](./assets/202512310127.svg)
 
