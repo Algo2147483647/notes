@@ -1,49 +1,57 @@
 # Task-Contingent Benefit Commitments
 
-A **task-contingent benefit commitment** is an operational mechanism through which a platform motivates users to complete specified actions by promising rewards upon task completion. Based on its operational objectives, the platform configures conditional benefit ***commitments*** and informs users that, within a defined time window, through a specified path, and under stated rules, they may obtain certain ***benefits*** by completing designated ***actions***. After seeing the commitment, users may decide whether to ***participate***. Once they accept the task, the system continuously records their behavioral ***progress*** and determines, according to the applicable rules, whether the target has been achieved. Upon completion, the platform delivers the promised benefit subject to budgetary and risk-control constraints, and may further guide the user into a new round of tasks or another participation opportunity, thereby forming a closed loop of sustained incentives.
+A **task-contingent benefit commitment** is an incentive mechanism in which a platform promises a benefit in exchange for the completion of specified user actions. Based on its business objectives, the platform defines the **commitment** by specifying the required **actions**, applicable rules, participation window, execution path, and promised **benefits**, and then presents it to eligible users.
 
-> **Configure the commitment → Display the commitment → User accepts → User performs the required action → Progress is measured → Benefit is delivered → User participates again**
+Users may choose whether to **participate** by accepting the task. Once accepted, the system tracks their behavioral **progress** and evaluates whether the completion criteria have been satisfied. When the task is completed, the promised benefit is delivered subject to applicable budget and risk-control constraints. The user may then be offered another task or participation opportunity, forming a recurring incentive loop.
 
-This system transforms “the behavior the platform wants users to perform” into “a task users are willing to actively complete in order to obtain benefits.” It is commonly used for long-term behavioral guidance, especially for cultivating user mindsets and usage habits. From the user’s perspective, the system reduces uncertainty by making clear what needs to be done, what can be obtained, and how much progress has been made. From the platform’s perspective, subsidies shift from indiscriminate distribution to targeted configuration around desired behaviors and performance-based fulfillment, thereby improving benefit allocation efficiency and user action conversion.
+> **Configure commitment → Present commitment → User accepts → User acts → Track progress → Deliver benefit → Re-engage**
+
+The mechanism converts desired platform behaviors into explicit, reward-backed tasks that users can voluntarily pursue. It is particularly useful for sustained behavioral guidance, such as encouraging repeated product usage or developing long-term usage habits.
+
+From the user’s perspective, it reduces uncertainty by clearly communicating **what action is required, what benefit is available, and how far the user has progressed**. From the platform’s perspective, it enables benefits to be allocated conditionally against desired behaviors and fulfilled only when defined outcomes are achieved, improving both incentive efficiency and behavioral conversion.
 
 ## 1. Tasks
 
-A task is the core object that users can directly see and understand in this mechanism. It represents a conditional commitment: once the user completes a specified action, the user may obtain a corresponding reward. A complete incentive task usually needs to specify three types of information:
+A **task** is the primary user-facing object in this mechanism. It represents a conditional commitment: if the user satisfies the defined completion criteria, the corresponding benefit becomes available. A complete incentive task typically defines three elements:
 
-| Information                            | Description                                                  |
-| -------------------------------------- | ------------------------------------------------------------ |
-| What the user needs to do              | For example, place an order, make a payment, check in, browse, share, or use a specific service. |
-| What counts as completion              | For example, complete three orders, check in for seven consecutive days, or browse a page for at least ten seconds. |
-| What the user receives upon completion | For example, coupons, points, lottery chances, membership benefits, or eligibility for the next-stage task. |
+| Element                 | Description                                                  |
+| ----------------------- | ------------------------------------------------------------ |
+| **Required action**     | What the user is expected to do, such as placing an order, making a payment, checking in, browsing, sharing, or using a specific service. |
+| **Completion criteria** | The conditions that determine successful completion, such as completing three orders, checking in for seven consecutive days, or browsing a page for at least ten seconds. |
+| **Benefit**             | What the user receives upon completion, such as coupons, points, lottery chances, membership benefits, or eligibility for a subsequent task. |
 
-The platform must also define whether a user is eligible to participate in the task, such as whether the user belongs to a specified city, user segment, time window, or business scenario.
+In addition, the task may define **participation eligibility**, which determines who can enter the task based on criteria such as location, user segment, participation window, or business context.
 
-### 1.1 Rule Definition and User Participation Records
+### 1.1 Definition and Runtime
 
-A task can be understood at two levels.
+A task exists at two levels:
 
-1. **Definition state**, namely the task rules configured by the platform. This level serves operational objectives and specifies the task content, reward content, participation conditions, and completion criteria.
+1. **Definition state**: The platform-configured task definition that specifies the task content, benefit, eligibility rules, and completion criteria. It serves as the blueprint for future participation.
 
-2. **Runtime state**, namely the participation record generated after a user joins the task. This level is user-specific and records which task the user participated in, when the user joined, which rules applied at that time, what the current progress is, and whether the user ultimately completed the task and received the reward.
+2. **Runtime state**: The user-specific participation instance created when a user joins the task. It records the applicable task definition, participation time, current progress, completion status, and benefit fulfillment status.
 
-This distinction is crucial. The platform may later modify how a task is displayed or may stop making the task available to new users. However, this does not necessarily mean that users who have already joined the task should automatically be subject to the updated rules.
+This separation is important because a task definition may change over time or become unavailable to new participants, while existing participation instances may still need to follow the rules that applied when they were created. Therefore, the runtime instance should preserve or reference the applicable version of the task definition rather than implicitly adopting later changes.
 
-### 1.2 Protection of Rules After User Participation
+### 1.2 Protection of Rules After Participation
 
-Once a user confirms participation in a task, the platform should preserve the task rules applicable at the time of participation. In principle, subsequent progress calculation, task completion judgment, and reward issuance for that user should all be based on those rules. Therefore, the system should generate and store a task-rule snapshot when the user confirms participation. At a minimum, the snapshot should include the task objective, validity period, progress calculation rules, reward content, reward issuance conditions, risk-control restrictions, and necessary user-facing copy.
+Once a user joins a task, the applicable rules should generally be fixed for that participation instance. Subsequent progress calculation, completion evaluation, and benefit fulfillment should therefore follow the rules in effect at the time of participation.
 
-If the platform later modifies the task rules, suspends task display, or stops allowing new users to participate, the system must clearly distinguish between two situations:
+To preserve this contract, the system should create a **task-rule snapshot** when participation is confirmed. At a minimum, the snapshot should capture the task objective, validity period, progress rules, benefit definition, fulfillment conditions, risk-control constraints, and any user-facing terms that materially affect the commitment.
 
-1. Whether the task is merely closed to new participants;
-2. Whether the change affects the progress calculation and reward issuance of users who have already joined.
+Subsequent changes to the task definition must distinguish between two effects:
 
-In general, users who have already participated should not have their expected benefits arbitrarily reduced because of subsequent rule changes by the platform. Unless the task rules have explicitly stated this possibility in advance, or unless special circumstances exist, such as fraud, risk events, inventory exhaustion, or system abnormalities, the platform should continue to fulfill the commitment according to the rules in effect when the user joined.
+1. **Admission changes:** whether the task remains available to new participants.
+2. **In-flight changes:** whether existing participation instances are affected in their progress calculation, completion criteria, or benefit fulfillment.
+
+As a general principle, closing or modifying a task for future participants should not alter the commitment already made to existing participants. Their expected benefits should continue to be governed by the applicable snapshot unless the original terms explicitly allow otherwise or exceptional conditions—such as fraud, risk-control intervention, inventory exhaustion, or system failure—justify different handling.
 
 ### 1.3 Personalized Tasks
 
-Tasks may also be generated on a personalized basis. The platform may configure different task objectives, reward content, or display copy for different users according to their city, user segment, historical behavior, business scenario, or acquisition channel. For example, when users at different membership tiers participate in the same task, the target thresholds they are required to meet may vary by tier; for instance, the required cumulative mileage can be dynamically adjusted according to membership level.
+Tasks may be personalized based on user attributes or business context. The platform may vary task objectives, completion thresholds, benefits, or user-facing content according to factors such as location, user segment, historical behavior, membership tier, business scenario, or acquisition channel.
 
-Once a personalized task is displayed to a user and the user confirms participation, it should become part of that user’s participation record. Thereafter, the system should calculate progress and issue rewards according to the personalized rules that the user accepted at that time.
+For example, users in different membership tiers may receive different completion thresholds for the same task template, such as a cumulative mileage requirement dynamically determined by membership level.
+
+Once the personalized task is presented and the user confirms participation, the resolved task parameters should be fixed for that participation instance and preserved as part of its rule snapshot. Subsequent progress calculation, completion evaluation, and benefit fulfillment should follow the personalized rules accepted by the user at the time of participation.
 
 ## 2. Participation Strategies
 
@@ -83,31 +91,31 @@ Therefore, when designing participation timing, the platform must first clarify 
 
 ### 2.3 Modes of Participation
 
-Different modes of participation affect task reach, user perception, and subsequent behavioral attribution.
+The **mode of participation** determines how a user enters a task and influences task reach, user awareness, participation friction, and behavioral attribution.
 
-| Participation Mode                         | Advantages                                                   | Risks or Limitations                                         |
-| ------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| User actively confirms participation       | The user’s perception is clear, willingness to participate is stronger, and a sense of commitment is easier to form. | The user journey is longer, and users may drop off during exposure, comprehension, clicking, confirmation, or action. |
-| Automatic enrollment                       | Coverage is broad, and user effort is low.                   | Users may not sufficiently perceive the task, so the incentive effect may be limited. |
-| Trigger-based invitation                   | Users can be reached precisely in specific scenarios.        | The trigger timing must be accurately identified; otherwise, the optimal incentive window may be missed. |
-| Post-behavior enrollment                   | User interruption is relatively low, and acceptance may be higher. | Users are more likely to understand it as an ex post benefit rather than an ex ante incentive. |
-| Default display with required confirmation | Balances task salience with user commitment.                 | Users still need to understand the value of the task, so page-level communication must be sufficiently clear. |
+| Participation Mode                   | Advantages                                                   | Risks or Limitations                                         |
+| ------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Explicit opt-in                      | The user clearly perceives the task and actively commits to participating, making the incentive more salient and subsequent behavior easier to attribute. | Adds friction to the user journey and may cause drop-off before participation or task completion. |
+| Automatic enrollment                 | Coverage is broad, and user effort is low.                   | Users may not sufficiently perceive the task, so the incentive effect may be limited. |
+| Trigger-based invitation             | Users can be reached precisely in specific scenarios.        | The trigger timing must be accurately identified; otherwise, the optimal incentive window may be missed. |
+| Default enrollment with confirmation | Combines broad exposure with an explicit participation step, balancing reach and user commitment. | Still requires clear communication and may introduce confirmation friction. |
+| Post-behavior enrollment             | Minimizes interruption and may increase perceived acceptance of the benefit. | Functions more like an ex post reward than a true ex ante incentive because participation occurs after the target behavior. |
 
-Task-based incentive mechanisms usually need to balance three objectives:
+In practice, participation design should balance three objectives:
 
-1. Whether the user can clearly perceive the task and reward before acting;
-2. Whether the operational cost of participating is sufficiently low;
-3. Whether the platform can reasonably determine whether subsequent behavior was attributable to the task.
+1. **Salience:** whether the user clearly understands the task and benefit before acting.
+2. **Friction:** whether participation requires minimal additional effort.
+3. **Attribution:** whether the platform can reasonably associate subsequent behavior with the incentive.
 
 ### 2.4 Repeat Participation
 
-Repeat participation rules determine whether users may participate in the same type of task again. Common models include:
+Repeat participation rules determine whether users may participate in the same type of task more than once. Common models include:
 
-1. **One-time participation.** Each user may participate only once, as in a new-user first-order task.
-2. **Periodic participation.** The system refreshes the task by calendar day, week, month, or a customized cycle, such as daily check-in or completing three orders per week.
-3. **Progressive participation.** The user must complete the current task before proceeding to the next round. For example, the platform may allocate each user 12 annual entries into the train-travel cashback program. After one entry has been used, the next entry becomes available on the following calendar day.
+1. **One-time participation.** A user may participate only once, such as in a new-user first-order task.
+2. **Periodic participation.** Participation opportunities reset according to a defined cycle, such as daily, weekly, monthly, or another configured period. Examples include daily check-in tasks or completing three orders within each calendar week.
+3. **Progressive participation.** A new participation opportunity is unlocked only after the current round reaches the required state, typically completion. For example, a user may receive up to 12 rounds of a train-travel cashback task per year, with the next round becoming available no earlier than the following calendar day after the previous round is used.
 
-Progressive participation is suitable for constructing a continuous behavioral path, but the rules for generating subsequent tasks must be clear. These include participation limits, unlocking conditions, waiting intervals, and the logic of reward escalation.
+Progressive participation is useful for creating a sustained behavioral journey. Its configuration should clearly define the maximum number of rounds, unlock conditions, waiting interval, and any progression in task requirements or benefits.
 
 ## 3. Task Objectives
 
@@ -151,11 +159,15 @@ A **composite task** consists of multiple sub-objectives and is suitable for mor
 
 Composite tasks are more flexible but also more likely to generate disputes over comprehension and calculation. Therefore, the user-facing presentation, progress calculation, and reward rules of composite tasks must remain consistent, so as to avoid discrepancies between the task logic displayed to users and the logic actually used by the system.
 
-### 3.3 Fallback Rules for Task Failure Caused by Non-User Factors
+### 3.3 Fallback Rules for Non-User-Caused Failure
 
-Some tasks do not depend entirely on user behavior. Even if users have attempted to complete the task according to the rules, final task completion may still be affected by platform supply, merchant fulfillment, inventory, system stability, payment infrastructure, or delivery capacity. For example, the user may have placed an order but the merchant cancels it; the user may have attempted payment but encounters a platform system failure; or the user may have arrived at a specified location but the service is unavailable. In such cases, if task failure is not caused by the user, the platform should not simply deny the user’s entitlement.
+Some tasks depend on factors beyond the user’s control, such as merchant fulfillment, inventory availability, system stability, payment infrastructure, or service capacity. As a result, a user may perform the required action in good faith but still fail to satisfy the formal completion criteria.
 
-Accordingly, the task mechanism needs fallback rules. For failures caused by the platform, merchants, systems, or fulfillment capacity, the platform may, depending on the circumstances, compensate progress, extend the task period, issue the reward retroactively, provide an alternative reward, or initiate manual review. The purpose is to prevent platform-side risks from being fully shifted to users and to preserve the credibility of the task commitment.
+For example, an order may be canceled by the merchant, a payment attempt may fail because of a platform outage, or a required service may be unavailable when the user arrives. When failure is attributable to such external factors rather than to the user, the task should not automatically be treated as unsuccessful.
+
+The task mechanism should therefore define **fallback rules** for non-user-caused failures. Depending on the scenario, the system may grant equivalent progress, extend the validity period, fulfill the benefit directly, provide an alternative benefit, or escalate the case for manual review.
+
+The objective is to ensure that risks outside the user’s control do not unfairly invalidate an otherwise legitimate participation and to preserve the credibility of the platform’s commitment.
 
 ## 4. Progress Calculation and Behavioral Attribution
 
@@ -233,7 +245,7 @@ Risk control is not an external add-on to the reward process; it runs through th
 
 ## 6. Business Challenges
 
-Task-based incentive mechanisms can improve short-term conversion and user activity. However, if used improperly over the long term, they may also create incentive dependence, distort user expectations, and increase the cost of relationship repair.
+Task-based incentives can improve short-term conversion and engagement, but persistent or poorly designed incentives may create long-term behavioral and relationship costs. Two common challenges are **incentive dependence** and **near-completion failure**.
 
 ### 6.1 Incentive Dependence
 
