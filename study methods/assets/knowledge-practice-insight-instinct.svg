@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="950" viewBox="0 0 2048 950" role="img" aria-labelledby="title desc">
+  <title id="title">知识、实践、领悟与本能</title>
+  <desc id="desc">知识通过实际需求进入实践，经验碎片积累到质变形成领悟，最终成为无需刻意回想的本能。系统性可靠知识源提供间接经验；思考、实践和现实之间的循环提供直接经验；系统性思维体系支持领悟。遗忘与现实变化使过程回到知识。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="20" markerHeight="24" refX="18" refY="12" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 2,2 L 18,12 L 2,22" fill="none" stroke="#000000" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="large-arrow" markerWidth="28" markerHeight="30" refX="25" refY="15" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 2,2 L 25,15 L 2,28" fill="none" stroke="#000000" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="light-arrow" markerWidth="20" markerHeight="22" refX="17" refY="11" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 2,2 L 17,11 L 2,20" fill="none" stroke="#000000" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      text { font-family: "KaiTi", "STKaiti", "Kaiti SC", "Noto Serif CJK SC", serif; font-weight: 400; text-anchor: middle; }
+      .stage { font-size: 68px; fill: #000000; }
+      .label { font-size: 23px; fill: #000000; }
+      .concept { font-size: 40px; fill: #000000; }
+      .note { font-size: 30px; fill: #000000; }
+      .line { fill: none; stroke: #000000; stroke-width: 1.35; }
+      .dashed { stroke-dasharray: 3.2 3.5; stroke-linecap: round; }
+      .cycle { fill: none; stroke: #000000; stroke-width: 1.2; }
+    </style>
+  </defs>
+  <rect width="2048" height="950" fill="white"/>
+
+  <!-- 遗忘与现实变化带来的回溯 -->
+  <path class="line dashed" d="M 1803,112 H 147" marker-end="url(#arrow)"/>
+  <text class="label" x="1032" y="87">遗忘、现实变化</text>
+
+  <!-- 从知识到本能的主流程 -->
+  <g class="stage">
+    <text x="151" y="265">知识</text>
+    <text x="738" y="265">实践</text>
+    <text x="1325" y="265">领悟</text>
+    <text x="1909" y="265">本能</text>
+  </g>
+  <g class="line" marker-end="url(#large-arrow)">
+    <path d="M 249,238 H 640"/>
+    <path d="M 835,238 H 1226"/>
+    <path d="M 1421,238 H 1812"/>
+  </g>
+  <g class="label">
+    <text x="424" y="276">对知识有实际需求</text>
+    <text x="1019" y="274">经验碎片积累到质变</text>
+    <text x="1617" y="274"><tspan x="1617">无需刻意回想</tspan><tspan x="1617" dy="27">判断与行动自然发生</tspan></text>
+  </g>
+
+  <!-- 三类支撑来源 -->
+  <g class="line dashed" marker-end="url(#arrow)">
+    <path d="M 151,612 V 294"/>
+    <path d="M 738,556 V 292"/>
+    <path d="M 1325,627 V 294"/>
+  </g>
+  <text class="concept" x="152" y="668"><tspan x="152">系统性可靠</tspan><tspan x="152" dy="48">知识源</tspan></text>
+  <text class="note" x="152" y="752">(间接经验)</text>
+
+  <!-- 思考、实践、现实之间的经验循环 -->
+  <text class="concept" x="527" y="713">思考</text>
+  <text class="concept" x="738" y="713">实践</text>
+  <text class="concept" x="949" y="713">现实</text>
+  <path class="cycle" d="M 528,658 C 531,548 718,537 740,654" marker-end="url(#light-arrow)"/>
+  <path class="cycle" d="M 740,733 C 733,838 548,854 527,737" marker-end="url(#light-arrow)"/>
+  <g class="label">
+    <text x="634" y="566">指导行动</text>
+    <text x="634" y="603">随机探索</text>
+    <text x="634" y="807">总结经验</text>
+    <text x="634" y="840">修正认知</text>
+    <text x="846" y="665">感性认识</text>
+    <text x="846" y="752">检验知识</text>
+  </g>
+  <path class="line" d="M 880,695 H 809" marker-end="url(#arrow)"/>
+  <path class="line" d="M 809,711 H 880" marker-end="url(#arrow)"/>
+  <text class="note" x="738" y="868">(直接经验)</text>
+
+  <text class="concept" x="1325" y="683"><tspan x="1325">系统性</tspan><tspan x="1325" dy="49">思维体系</tspan></text>
+  <text class="label" x="1328" y="789"><tspan x="1328">事物关联网络</tspan><tspan x="1328" dy="33">思维模板迁移新事物</tspan></text>
+</svg>

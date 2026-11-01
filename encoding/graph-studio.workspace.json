@@ -1,0 +1,11 @@
+{
+  "format": "graph-studio-workspace",
+  "version": 1,
+  "name": "Encoding",
+  "graphs": [
+    "all-encoding.json"
+  ],
+  "defaultGraph": "all-encoding.json",
+  "metadata": {
+  }
+}
