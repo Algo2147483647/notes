@@ -1,12 +1,12 @@
-# Agent-Environment Learning
+# Reward-Guided Sequential Decision Learning
 
 [TOC]
 
-## Problem
+## Reward-Guided Sequential Decision Model
 
 Let **Agent** interact with unknown **Environment**, and learn how to choose actions $A$ in the current state $S$ to find strategies $\pi$ that can maximize the cumulative Reward $G$. 
 
-<img src="assets/12rmKGjZOv5pGkLLVt-EuMA.png" alt="img" style="zoom: 50%;" />
+<img src="./assets/Markov_diagram_v2.svg" alt="Markov_diagram_v2" style="zoom:15%;" />
 
 The Environment feeds back status $S$ and rewards $R$ based on the action $A$ of the Agent each step.
 
@@ -95,7 +95,7 @@ Generate a random number $p$ uniformly from $[0, 1]$.
 - $p < \epsilon$ Explore: randomly selecting an action $a$ from the action space $\mathcal{A}$.
 - $p \geq \epsilon$ Exploit: $a = \arg\max\limits_{a' \in \mathcal{A}} Q(s, a')$
 
-## Include
+## --
 
 ### Single state agent-environment learning
 
