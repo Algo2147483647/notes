@@ -22,7 +22,8 @@ const latitudeInput=document.getElementById('latitude');
 const declinationInput=document.getElementById('declination');
 function geometry(latitude,declination){
  const phi=latitude*D,delta=declination*D;
- const tilt=(latitude<0?-18:18)*D;
+ // Keep the northern view and ease into the southern view across low southern latitudes.
+ const tilt=18*D*Math.max(-1,Math.min(1,1+latitude/15));
  const longitude=30*D*Math.max(0,1-Math.abs(latitude)/60);
  const n=[Math.cos(phi)*Math.cos(longitude),Math.cos(phi)*Math.sin(longitude),Math.sin(phi)];
  const north=[-Math.sin(phi)*Math.cos(longitude),-Math.sin(phi)*Math.sin(longitude),Math.cos(phi)];
@@ -72,6 +73,7 @@ function render(latitude,declination){
  segmented(day,v=>v.visible,'orbit');
  const visible=day.filter(v=>v.visible);
  const noon=solar(0),midnight=solar(180),noonPoint=lp(...noon),midnightPoint=lp(...midnight);
+ const noonVisible=noon[2]>=-1e-10;
  let arrowCount=0;
  for(const h of [-105,-45,45,115]){
   const section=Array.from({length:9},(_,i)=>solar(h+i));
@@ -80,8 +82,11 @@ function render(latitude,declination){
  // Parallel sunlight, including the radius of the subsolar point.
  const sv=local(...noon),direction=project(sv),Q=at(C,sv,R);
  const source=P.map((v,i)=>v+direction[i]*620),sourceQ=Q.map((v,i)=>v+direction[i]*500);
- line(source,P,'solarArrow');line(sourceQ,Q,'solarArrow');line(C,Q,'solar');
- const sunlightLabel=[source[0]+20,source[1]+45];text(sunlightLabel,'Parallel sunlight',20,'middle','goldLabel');
+ // The observer receives direct sunlight only when the noon Sun reaches the horizon.
+ if(noonVisible)line(source,P,'solarArrow');
+ line(sourceQ,Q,'solarArrow');line(C,Q,'solar');
+ const labelSource=noonVisible?source:sourceQ;
+ const sunlightLabel=[labelSource[0]+20,labelSource[1]+45];text(sunlightLabel,'Parallel sunlight',20,'middle','goldLabel');
  dot(Q,3);const below=Math.abs(latitude)>40,qlabel=[Q[0]+42,Q[1]+(below?86:-44)];text(qlabel,'Subsolar point',20,'start','goldLabel');line([qlabel[0]-5,qlabel[1]+(below?-17:10)],[Q[0]+5,Q[1]+(below?6:-6)],'fine');
  // Global Z is vertical; local zenith follows OP.
  line(C,at(C,[0,0,1],R),'dash');const pole=at(C,[0,0,1],R);const globalZ=[0,pole[1]-75];line(pole,globalZ,'arrow');text([-13,globalZ[1]-12],'Z',23,'end','math');
@@ -104,9 +109,18 @@ function render(latitude,declination){
   const expr=Math.abs(latitude)<.001?'|δ|':'|φ − δ|';text(label,expr,24,'middle','math');
  }
  // Text belongs beside the corresponding point, never as an added panel.
- if(noon[2]>=-1e-10){dot(noonPoint,5,RED);text([noonPoint[0]+16,noonPoint[1]-13],'Noon',17,'start','eventLabel')}
+ if(noonVisible){dot(noonPoint,5,RED);text([noonPoint[0]+16,noonPoint[1]-13],'Noon',17,'start','eventLabel')}
  if(midnight[2]>=-1e-10){dot(midnightPoint,4,RED);text([midnightPoint[0]-15,midnightPoint[1]-13],'Midnight',17,'end','eventLabel')}
- if(visible.length){const upper=visible.reduce((a,b)=>a.p[1]<b.p[1]?a:b).p;text([upper[0],upper[1]-21],'Daily solar path',23,'middle','redLabel')}
+ if(visible.length){
+  const upper=visible.reduce((a,b)=>a.p[1]<b.p[1]?a:b).p;
+  let label=[upper[0],upper[1]-21];
+  // A downward-facing dome can put the upper label on the Earth.
+  if(np[1]>0&&Math.hypot(...label)<R+28){
+   const lower=visible.reduce((a,b)=>a.p[1]>b.p[1]?a:b).p;
+   label=[lower[0],lower[1]+30];
+  }
+  text(label,'Daily solar path',23,'middle','redLabel');
+ }
  const defs=`<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#111"/></marker><marker id="goldArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="${GOLD}"/></marker><marker id="redArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="${RED}"/></marker><radialGradient id="earth" cx="82%" cy="31%" r="86%"><stop offset="0" stop-color="#fafafa"/><stop offset=".27" stop-color="#eee"/><stop offset=".55" stop-color="#c6c6c6"/><stop offset=".79" stop-color="#999"/><stop offset="1" stop-color="#686868"/></radialGradient><radialGradient id="shadow"><stop offset="0" stop-color="#000" stop-opacity=".13"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>`;
  const style=`<style>text{font-family:Georgia,'Times New Roman',serif;fill:#111}.line,.fine,.dash,.arrow,.orbit,.orbitArrow,.solar,.solarArrow{fill:none;stroke:#111;stroke-linecap:round;stroke-linejoin:round}.line{stroke-width:1.8}.fine{stroke-width:1.1}.dash{stroke-width:1.25;stroke-dasharray:6 6}.arrow{stroke-width:1.8;marker-end:url(#arrow)}.orbit{stroke:${RED};stroke-width:3}.orbitArrow{stroke:${RED};stroke-width:2;marker-end:url(#redArrow)}.solar,.solarArrow{stroke:${GOLD};stroke-width:2}.solarArrow{marker-end:url(#goldArrow)}.math{font-style:italic}.redLabel,.eventLabel{fill:${RED}}.eventLabel{font-style:italic}.goldLabel{fill:${GOLD}}</style>`;
  const minX=Math.min(...bounds.map(p=>p[0]))-65,maxX=Math.max(...bounds.map(p=>p[0]))+65,minY=Math.min(...bounds.map(p=>p[1]))-125,maxY=Math.max(...bounds.map(p=>p[1]))+55;

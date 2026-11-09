@@ -14,10 +14,6 @@ $$
 \max_{\pi} \quad G = \sum_{t = 0}^\infty R_t  \tag{objective}
 $$
 
-<img src="./assets/Markov_diagram_v2.svg" alt="Markov_diagram_v2" style="zoom:15%;" />
-
-
-
 <img src="./assets/Markov_diagram_unrolled.svg" alt="Markov_diagram_unrolled" style="zoom: 50%;" />
 
 - $S$: State set.
@@ -101,7 +97,7 @@ Generate a random number $p$ uniformly from $[0, 1]$.
 - $p < \epsilon$ Explore: randomly selecting an action $a$ from the action space $\mathcal{A}$.
 - $p \geq \epsilon$ Exploit: $a = \arg\max\limits_{a' \in \mathcal{A}} Q(s, a')$
 
-## --
+## Including
 
 ### Single state agent-environment learning
 
@@ -147,43 +143,50 @@ The Bellman equation provides a recursive way to calculate the value function, b
 
 
 
-***Proof: Bellman Equation***
-$$
-\begin{align*}
-V(s) &= \mathbb E(G_t | S_t=s)  \tag{Define}  \\
-&= \mathbb E(R_{t+1} + \gamma G_{t+1} | S_t=s)  \tag{substitution}  \\
-&= \sum_{a \in A} \mathbb P_\pi(a | s)  \left( \sum_{s' \in S} \sum_{r \in R} \mathbb P(s', r | s, a) · (r + \gamma \mathbb E(G_{t+1} | S_{t+1} = s')) \right)  \tag{formula of Expectation}  \\
-&= \sum_{a \in A} \mathbb P_\pi(a | s)  \left( \sum_{s' \in S} \sum_{r \in R} \mathbb P(s', r | s, a) · (r + \gamma V(s')) \right)  \tag{substitution}  \\
-&= \mathbb E(R_{t+1} + \gamma V(S_{t+1}) | S_t=s)
-\end{align*}
-$$
+> ***Proof: Bellman Equation***
+> $$
+> \begin{align*}
+> V(s) &= \mathbb E(G_t | S_t=s)   \\
+> &= \mathbb E(R_{t+1} + \gamma G_{t+1} | S_t=s) \\
+> &= \sum_{a \in A} \mathbb P_\pi(a | s)  \left( \sum_{s' \in S} \sum_{r \in R} \mathbb P(s', r | s, a) · (r + \gamma \mathbb E(G_{t+1} | S_{t+1} = s')) \right)\\
+> &= \sum_{a \in A} \mathbb P_\pi(a | s)  \left( \sum_{s' \in S} \sum_{r \in R} \mathbb P(s', r | s, a) · (r + \gamma V(s')) \right)  \\
+> &= \mathbb E(R_{t+1} + \gamma V(S_{t+1}) | S_t=s)
+> \end{align*}
+> $$
+>
+> $$
+> \begin{align*}
+> Q(s,a) &= \mathbb E(G_t | S_t = s, A_t = a)  \\
+> &= \mathbb E \left(\sum_{k=0}^\infty \gamma^k R_{t+k+1} | S_t = s, A_t = a \right)  \\
+> &= \mathbb E_{s'}(r+\gamma Q (s', a') | s, a)  \\
+> \end{align*}
+> $$
+>
+> Q.E.D.
 
-$$
-\begin{align*}
-Q(s,a) &= \mathbb E(G_t | S_t = s, A_t = a)  \\
-&= \mathbb E \left(\sum_{k=0}^\infty \gamma^k R_{t+k+1} | S_t = s, A_t = a \right)  \\
-&= \mathbb E_{s'}(r+\gamma Q (s', a') | s, a)  \\
-\end{align*}
-$$
 
-***Proof: Strategy gradient theorem***
-$$
-\begin{align*}
-\nabla_\theta V_\pi(s) 
-&= \nabla_\theta\ \mathbb E(G_t|S_t = s)  \tag{价值函数定义}  \\
-&= \nabla_\theta \left(\sum_{a \in A} \mathbb P_\pi(a|s)\ Q(s,a) \right)  \tag{期望公式}  \\
-&= \sum_{a \in A} \nabla_\theta(\mathbb P_\pi(a|s)\ Q(s,a))  \tag{分配律}  \\
-&= \sum_{a \in A}(Q(s,a)\ \nabla_\theta \mathbb P_\pi(a|s) + \mathbb P_\pi(a|s)\ \nabla_\theta Q(s,a))  \tag{微分乘法法则}  \\
-&= \sum_{a \in A}(Q(s,a)\ \nabla_\theta \mathbb P_\pi(a|s) + \mathbb P_\pi(a|s)\ \nabla_\theta \sum_{s', r} \mathbb P(s', r | s, a)(r + \gamma V_\pi(s')))  \tag{代入}  \\
-&= \sum_{a \in A}(Q(s,a)\ \nabla_\theta \mathbb P_\pi(a|s) + \mathbb P_\pi(a|s)\ \sum_{s', r} \mathbb P(s', r | s, a) \gamma \nabla_\theta V_\pi(s'))  \tag{分配律}  \\
-&= \sum_{a \in A} Q(s,a)\ \nabla_\theta \mathbb P_\pi(a|s) + \sum_{s'} \gamma \nabla_\theta V_\pi(s') \sum_{a \in A} \mathbb P_\pi(a|s)\sum_r \mathbb P(s', r | s, a)  \tag{加法性质}  \\
-&= \sum_{a \in A} Q(s,a)\ \nabla_\theta \mathbb P_\pi(a|s) + \sum_{s'} \gamma \nabla_\theta V_\pi(s') \sum_{a \in A} \mathbb P(s', a| s)  \tag{条件概率公式}  \\
-&= \sum_{a \in A} Q(s,a)\ \nabla_\theta \mathbb P_\pi(a|s) + \sum_{s'} \gamma \mathbb P(s'| s) \nabla_\theta V_\pi(s')  \tag{概率求和}  \\
-&= \sum_{s' \in S} \sum_{t=0}^\infty \gamma^t \mathbb P^{(t)}_\pi(s' | s) \sum_{a \in A} Q_\pi(s', a) \nabla_\theta \mathbb P_\pi(a|s')  \tag{递推$ \nabla_\theta V_\pi(s')$展开, $\mathbb P^{(t)}$是t步转移概率}  \\
-&=\left(\sum_{s''\in S} \sum_{t=0}^\infty \gamma^t \mathbb P_\pi^{(t)}(s''| s)\right) · \sum_{s' \in S} \frac{\sum_{t=0}^\infty \gamma^t \mathbb P_\pi^{(t)}(s'| s)}{\sum_{s''\in S}(\sum_{t=0}^\infty \gamma^t \mathbb P_\pi^{(t)}(s''| s))} \sum_{a \in A} Q_\pi(s', a) \nabla_\theta \mathbb P_\pi(a|s')  \tag{提项,将$\sum_{t=0}^\infty \mathbb P_\pi^{(t)}(s'| s)$归一化}  \\
-&= \alpha \sum_{s' \in S} \mathbb P_{μ,\pi}(s') \sum_{a \in A} Q_\pi(s', a) \nabla_\theta \mathbb P_\pi(a|s')  \\
-&= \alpha \mathbb E_{s' \sim \mathbb P_{μ,\pi}}\left(\sum_{a \in A} Q_\pi(s', a) \nabla_\theta \mathbb P_\pi(a|s')\right)  \tag{期望形式}  \\
-&= \alpha \mathbb E_{s' \sim \mathbb P_{μ,\pi}}\left(\sum_{a \in A} \mathbb P_\pi(a|s') Q_\pi(s', a) \frac{\nabla_\theta \mathbb P_\pi(a|s')}{\mathbb P_\pi(a|s')}\right)  \tag{提项$\mathbb P_\pi(a|s')$, 方便后面对$a$写期望}  \\
-&= \alpha \mathbb E_{s' \sim \mathbb P_{μ,\pi}, a \sim \pi}(Q_\pi(s', a)\ \nabla_\theta \ln \mathbb P_\pi(a|s'))  \tag{期望形式, 微分公式}
-\end{align*}
-$$
+
+
+
+> ***Proof: Strategy gradient theorem***
+> $$
+> \begin{align*}
+> \nabla_\theta V_\pi(s) 
+> &= \nabla_\theta\ \mathbb E(G_t|S_t = s)   \\
+> &= \nabla_\theta \left(\sum_{a \in A} \mathbb P_\pi(a|s)\ Q(s,a) \right)  \\
+> &= \sum_{a \in A} \nabla_\theta(\mathbb P_\pi(a|s)\ Q(s,a)) \\
+> &= \sum_{a \in A}(Q(s,a)\ \nabla_\theta \mathbb P_\pi(a|s) + \mathbb P_\pi(a|s)\ \nabla_\theta Q(s,a))  \\
+> &= \sum_{a \in A}(Q(s,a)\ \nabla_\theta \mathbb P_\pi(a|s) + \mathbb P_\pi(a|s)\ \nabla_\theta \sum_{s', r} \mathbb P(s', r | s, a)(r + \gamma V_\pi(s')))  \\
+> &= \sum_{a \in A}(Q(s,a)\ \nabla_\theta \mathbb P_\pi(a|s) + \mathbb P_\pi(a|s)\ \sum_{s', r} \mathbb P(s', r | s, a) \gamma \nabla_\theta V_\pi(s')) \\
+> &= \sum_{a \in A} Q(s,a)\ \nabla_\theta \mathbb P_\pi(a|s) + \sum_{s'} \gamma \nabla_\theta V_\pi(s') \sum_{a \in A} \mathbb P_\pi(a|s)\sum_r \mathbb P(s', r | s, a)   \\
+> &= \sum_{a \in A} Q(s,a)\ \nabla_\theta \mathbb P_\pi(a|s) + \sum_{s'} \gamma \nabla_\theta V_\pi(s') \sum_{a \in A} \mathbb P(s', a| s)  \\
+> &= \sum_{a \in A} Q(s,a)\ \nabla_\theta \mathbb P_\pi(a|s) + \sum_{s'} \gamma \mathbb P(s'| s) \nabla_\theta V_\pi(s')  \\
+> &= \sum_{s' \in S} \sum_{t=0}^\infty \gamma^t \mathbb P^{(t)}_\pi(s' | s) \sum_{a \in A} Q_\pi(s', a) \nabla_\theta \mathbb P_\pi(a|s')  \\
+> &=\left(\sum_{s''\in S} \sum_{t=0}^\infty \gamma^t \mathbb P_\pi^{(t)}(s''| s)\right) · \sum_{s' \in S} \frac{\sum_{t=0}^\infty \gamma^t \mathbb P_\pi^{(t)}(s'| s)}{\sum_{s''\in S}(\sum_{t=0}^\infty \gamma^t \mathbb P_\pi^{(t)}(s''| s))} \sum_{a \in A} Q_\pi(s', a) \nabla_\theta \mathbb P_\pi(a|s')  \\
+> &= \alpha \sum_{s' \in S} \mathbb P_{μ,\pi}(s') \sum_{a \in A} Q_\pi(s', a) \nabla_\theta \mathbb P_\pi(a|s')  \\
+> &= \alpha \mathbb E_{s' \sim \mathbb P_{μ,\pi}}\left(\sum_{a \in A} Q_\pi(s', a) \nabla_\theta \mathbb P_\pi(a|s')\right) \\
+> &= \alpha \mathbb E_{s' \sim \mathbb P_{μ,\pi}}\left(\sum_{a \in A} \mathbb P_\pi(a|s') Q_\pi(s', a) \frac{\nabla_\theta \mathbb P_\pi(a|s')}{\mathbb P_\pi(a|s')}\right)\\
+> &= \alpha \mathbb E_{s' \sim \mathbb P_{μ,\pi}, a \sim \pi}(Q_\pi(s', a)\ \nabla_\theta \ln \mathbb P_\pi(a|s'))
+> \end{align*}
+> $$
+> Q.E.D.
