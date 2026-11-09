@@ -1,24 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="390" viewBox="0 0 1060 390" role="img" aria-labelledby="desc">
-<desc id="desc">Agent above Environment at t-1, t, and t+1. Compact black and white diagram with rounded connector bends.</desc>
-<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="black"/></marker>
-<style>text{font-family:Georgia,'Times New Roman',serif;fill:black}.math{font-size:25px;font-style:italic}.flow{fill:none;stroke:black;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round;marker-end:url(#arrow)}.box{fill:white;stroke:black;stroke-width:2}</style></defs>
-<rect width="1060" height="390" fill="white"/>
-<rect class="box" x="75" y="60" width="180" height="75" rx="12"/><text x="165" y="106" text-anchor="middle" font-size="25">Agent</text>
-<rect class="box" x="75" y="275" width="180" height="80" rx="12"/><text x="165" y="324" text-anchor="middle" font-size="25">Environment</text>
-<path class="flow" d="M165 135V275"/><text class="math" x="184" y="213">A<tspan baseline-shift="sub" font-size="16">t−1</tspan></text>
-<path class="flow" d="M255 315H286Q320 315 320 281V131Q320 97 354 97H405"/>
-<text class="math" x="336" y="199">S<tspan baseline-shift="sub" font-size="16">t</tspan></text><text class="math" x="336" y="237">R<tspan baseline-shift="sub" font-size="16">t</tspan></text>
-<rect class="box" x="405" y="60" width="180" height="75" rx="12"/><text x="495" y="106" text-anchor="middle" font-size="25">Agent</text>
-<rect class="box" x="405" y="275" width="180" height="80" rx="12"/><text x="495" y="324" text-anchor="middle" font-size="25">Environment</text>
-<path class="flow" d="M495 135V275"/><text class="math" x="514" y="213">A<tspan baseline-shift="sub" font-size="16">t</tspan></text>
-<path class="flow" d="M585 315H616Q650 315 650 281V131Q650 97 684 97H735"/>
-<text class="math" x="666" y="199">S<tspan baseline-shift="sub" font-size="16">t+1</tspan></text><text class="math" x="666" y="237">R<tspan baseline-shift="sub" font-size="16">t+1</tspan></text>
-<rect class="box" x="735" y="60" width="180" height="75" rx="12"/><text x="825" y="106" text-anchor="middle" font-size="25">Agent</text>
-<rect class="box" x="735" y="275" width="180" height="80" rx="12"/><text x="825" y="324" text-anchor="middle" font-size="25">Environment</text>
-<path class="flow" d="M825 135V275"/><text class="math" x="844" y="213">A<tspan baseline-shift="sub" font-size="16">t+1</tspan></text>
-<path class="flow" d="M915 315H946Q980 315 980 281V131Q980 97 1014 97H1025"/>
-<text class="math" x="996" y="199">S<tspan baseline-shift="sub" font-size="16">t+2</tspan></text><text class="math" x="996" y="237">R<tspan baseline-shift="sub" font-size="16">t+2</tspan></text>
-<path class="flow" d="M15 97H75"/>
-<text class="math" x="20" y="40">S<tspan baseline-shift="sub" font-size="16">t−1</tspan></text>
-<text class="math" x="20" y="74">R<tspan baseline-shift="sub" font-size="16">t−1</tspan></text>
-<text x="1028" y="105" font-size="25">…</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="290" viewBox="0 0 780 290" role="img" aria-labelledby="desc">
+  <desc id="desc">An Agent and an Environment exchange signals over time. Each complete time step pairs upward state and reward feedback on the left with a downward action on the right.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 10 5 0 10Z" fill="#000000"/>
+    </marker>
+    <style>
+      text { font-family: Georgia, 'Times New Roman', serif; fill: #000000; }
+      .label { font-size: 25px; text-anchor: middle; }
+      .math { font-size: 25px; font-style: italic; }
+      .feedback { text-anchor: end; }
+      .flow { fill: none; stroke: #000000; stroke-width: 2.2; marker-end: url(#arrow); }
+      .box { fill: #ffffff; stroke: #000000; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect width="780" height="290" fill="#ffffff"/>
+  <rect class="box" x="30" y="25" width="720" height="56" rx="12"/>
+  <text class="label" x="390" y="61">Agent</text>
+  <rect class="box" x="30" y="209" width="720" height="56" rx="12"/>
+  <text class="label" x="390" y="245">Environment</text>
+
+  <g id="step-t-minus-1">
+    <path class="flow" d="M130 209V81"/>
+    <g class="feedback">
+      <text class="math" x="117" y="139">S<tspan baseline-shift="sub" font-size="16">t−1</tspan></text>
+      <text class="math" x="117" y="169">R<tspan baseline-shift="sub" font-size="16">t−1</tspan></text>
+    </g>
+    <path class="flow" d="M166 81V209"/>
+    <text class="math" x="179" y="154">A<tspan baseline-shift="sub" font-size="16">t−1</tspan></text>
+  </g>
+
+  <g id="step-t">
+    <path class="flow" d="M315 209V81"/>
+    <g class="feedback">
+      <text class="math" x="302" y="139">S<tspan baseline-shift="sub" font-size="16">t</tspan></text>
+      <text class="math" x="302" y="169">R<tspan baseline-shift="sub" font-size="16">t</tspan></text>
+    </g>
+    <path class="flow" d="M351 81V209"/>
+    <text class="math" x="364" y="154">A<tspan baseline-shift="sub" font-size="16">t</tspan></text>
+  </g>
+
+  <g id="step-t-plus-1">
+    <path class="flow" d="M500 209V81"/>
+    <g class="feedback">
+      <text class="math" x="487" y="139">S<tspan baseline-shift="sub" font-size="16">t+1</tspan></text>
+      <text class="math" x="487" y="169">R<tspan baseline-shift="sub" font-size="16">t+1</tspan></text>
+    </g>
+    <path class="flow" d="M536 81V209"/>
+    <text class="math" x="549" y="154">A<tspan baseline-shift="sub" font-size="16">t+1</tspan></text>
+  </g>
+
+  <g id="step-t-plus-2">
+    <path class="flow" d="M685 209V81"/>
+    <g class="feedback">
+      <text class="math" x="672" y="139">S<tspan baseline-shift="sub" font-size="16">t+2</tspan></text>
+      <text class="math" x="672" y="169">R<tspan baseline-shift="sub" font-size="16">t+2</tspan></text>
+    </g>
+  </g>
+  <text class="label" x="729" y="154">…</text>
+</svg>

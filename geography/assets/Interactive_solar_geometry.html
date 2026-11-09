@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Solar geometry</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent;color:#111;font-family:Georgia,'Times New Roman',serif}#diagram{width:100%;height:100%;display:block}.parameters{position:absolute;right:28px;top:24px;display:flex;gap:20px;align-items:start}.field{display:flex;flex-direction:column;gap:8px;font-size:14px}.field span{white-space:nowrap}.entry{display:flex;align-items:center;gap:7px}.entry input{width:96px;padding:8px 10px;border:1px solid #bcbcbc;border-radius:6px;background:rgba(255,255,255,.88);font:18px Georgia,'Times New Roman',serif;color:#111;outline:none}.entry input:focus{border-color:#111;box-shadow:0 0 0 1px #111}.entry input:invalid{border-color:#b24040}.entry b{font-weight:400;font-size:19px}@media(max-width:600px){.parameters{right:16px;top:16px;gap:14px}.field{font-size:12px}.entry input{width:83px;padding:7px 8px;font-size:16px}}
+</style>
+</head>
+<body>
+<svg id="diagram" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Interactive Earth-fixed solar geometry"></svg>
+<div class="parameters" aria-label="Solar geometry parameters">
+<label class="field"><span>Latitude φ</span><span class="entry"><input id="latitude" type="number" min="-90" max="90" step="any" value="70" aria-label="Latitude in degrees"><b>°</b></span></label>
+<label class="field"><span>Solar declination δ</span><span class="entry"><input id="declination" type="number" min="-23.44" max="23.44" step="any" value="23.44" aria-label="Solar declination in degrees"><b>°</b></span></label>
+</div>
+<script>
+'use strict';
+const D=Math.PI/180, GOLD='#D8BC80', RED='#FF0000';
+const svg=document.getElementById('diagram');
+const latitudeInput=document.getElementById('latitude');
+const declinationInput=document.getElementById('declination');
+function geometry(latitude,declination){
+ const phi=latitude*D,delta=declination*D;
+ const tilt=(latitude<0?-18:18)*D;
+ const longitude=30*D*Math.max(0,1-Math.abs(latitude)/60);
+ const n=[Math.cos(phi)*Math.cos(longitude),Math.cos(phi)*Math.sin(longitude),Math.sin(phi)];
+ const north=[-Math.sin(phi)*Math.cos(longitude),-Math.sin(phi)*Math.sin(longitude),Math.cos(phi)];
+ const east=[-Math.sin(longitude),Math.cos(longitude),0];
+ const equatorial=[Math.cos(longitude),Math.sin(longitude),0];
+ const project=v=>[v[0],Math.sin(tilt)*v[1]-Math.cos(tilt)*v[2]];
+ const depth=v=>Math.cos(tilt)*v[1]+Math.sin(tilt)*v[2];
+ const local=(e,no,u)=>n.map((_,i)=>e*east[i]+no*north[i]+u*n[i]);
+ const solar=h=>{h*=D;return [-Math.cos(delta)*Math.sin(h),Math.cos(phi)*Math.sin(delta)-Math.sin(phi)*Math.cos(delta)*Math.cos(h),Math.sin(phi)*Math.sin(delta)+Math.cos(phi)*Math.cos(delta)*Math.cos(h)]};
+ return {phi,delta,n,north,east,equatorial,project,depth,local,solar,latitude,declination};
+}
+function render(latitude,declination){
+ const g=geometry(latitude,declination),{phi,delta,n,north,equatorial,project,depth,local,solar}=g;
+ const R=235,H=310,C=[0,0];
+ const at=(c,v,r)=>{const p=project(v);return [c[0]+p[0]*r,c[1]+p[1]*r]};
+ const P=at(C,n,R),lp=(e,no,u,r=H)=>at(P,local(e,no,u),r);
+ const pieces=[],bounds=[[-R,-R],[R,R+35]],f=v=>Number(v.toFixed(2));
+ const point=p=>`${f(p[0])},${f(p[1])}`;
+ function path(ps,cls='line'){
+  if(ps.length<2)return;bounds.push(...ps);pieces.push(`<path class="${cls}" d="${ps.map((p,i)=>(i?'L':'M')+point(p)).join(' ')}"/>`);
+ }
+ const line=(a,b,cls='line')=>path([a,b],cls);
+ function dot(p,r=4,color='#111'){bounds.push(p);pieces.push(`<circle cx="${f(p[0])}" cy="${f(p[1])}" r="${r}" fill="${color}"/>`)}
+ function text(p,t,size=22,anchor='start',cls=''){
+  const w=t.length*size*.53,x=anchor==='middle'?p[0]-w/2:anchor==='end'?p[0]-w:p[0];
+  bounds.push([x,p[1]-size],[x+w,p[1]+5]);
+  pieces.push(`<text x="${f(p[0])}" y="${f(p[1])}" font-size="${size}" text-anchor="${anchor}" class="${cls}">${t}</text>`);
+ }
+ function segmented(samples,predicate,cls){
+  let run=[];for(const v of samples){if(predicate(v)){run.push(v.p)}else{path(run,cls);run=[]}}path(run,cls);
+ }
+ // Earth: no meridian grid; the equator is the only surface reference.
+ pieces.push(`<ellipse cx="0" cy="${R+15}" rx="220" ry="25" fill="url(#shadow)"/><circle r="${R}" fill="url(#earth)"/>`);
+ const latitudeSign=latitude<0?-1:1;
+ const eq=Array.from({length:361},(_,i)=>{const v=[Math.cos(i*D),Math.sin(i*D),0];return {p:at(C,v,R),front:depth(v)>=0}});
+ segmented(eq,v=>!v.front,'dash');segmented(eq,v=>v.front,'fine');
+ // Projected silhouette of the local hemisphere, tangent at P.
+ const np=project(n),angle=Math.atan2(np[1],np[0]);
+ path(Array.from({length:181},(_,i)=>[P[0]+H*Math.cos(angle-Math.PI/2+i*Math.PI/180),P[1]+H*Math.sin(angle-Math.PI/2+i*Math.PI/180)]));
+ const horizon=Array.from({length:361},(_,i)=>{const v=local(Math.cos(i*D),Math.sin(i*D),0);return {p:at(P,v,H),front:depth(v)>0}});
+ segmented(horizon,v=>!v.front,'dash');segmented(horizon,v=>v.front,'line');
+ path(Array.from({length:181},(_,i)=>lp(0,Math.cos(i*D),Math.sin(i*D))),'dash');
+ const N=lp(0,1,0),S=lp(0,-1,0),Z=lp(0,0,1);
+ line(N,S,'fine');line(P,Z,'dash');text([N[0]-12,N[1]-13],'N',20,'end');text([S[0]+13,S[1]+19],'S',20);
+ // Only the part of the solar path above the horizon belongs to this hemisphere.
+ const day=Array.from({length:1441},(_,i)=>{const h=-180+i/4,v=solar(h);return {p:lp(...v),visible:v[2]>=-1e-10,h}});
+ segmented(day,v=>v.visible,'orbit');
+ const visible=day.filter(v=>v.visible);
+ const noon=solar(0),midnight=solar(180),noonPoint=lp(...noon),midnightPoint=lp(...midnight);
+ let arrowCount=0;
+ for(const h of [-105,-45,45,115]){
+  const section=Array.from({length:9},(_,i)=>solar(h+i));
+  if(section.every(v=>v[2]>=0)&&arrowCount<2){path(section.map(v=>lp(...v)),'orbitArrow');arrowCount++}
+ }
+ // Parallel sunlight, including the radius of the subsolar point.
+ const sv=local(...noon),direction=project(sv),Q=at(C,sv,R);
+ const source=P.map((v,i)=>v+direction[i]*620),sourceQ=Q.map((v,i)=>v+direction[i]*500);
+ line(source,P,'solarArrow');line(sourceQ,Q,'solarArrow');line(C,Q,'solar');
+ const sunlightLabel=[source[0]+20,source[1]+45];text(sunlightLabel,'Parallel sunlight',20,'middle','goldLabel');
+ dot(Q,3);const below=Math.abs(latitude)>40,qlabel=[Q[0]+42,Q[1]+(below?86:-44)];text(qlabel,'Subsolar point',20,'start','goldLabel');line([qlabel[0]-5,qlabel[1]+(below?-17:10)],[Q[0]+5,Q[1]+(below?6:-6)],'fine');
+ // Global Z is vertical; local zenith follows OP.
+ line(C,at(C,[0,0,1],R),'dash');const pole=at(C,[0,0,1],R);const globalZ=[0,pole[1]-75];line(pole,globalZ,'arrow');text([-13,globalZ[1]-12],'Z',23,'end','math');
+ const eqRadius=at(C,equatorial,R);line(C,eqRadius,'fine');line(C,P);
+ dot(C,3);text([-11,13],'O',23,'end','math');dot(P,5);text([P[0]-14,P[1]+29],'P',25,'end','math');
+ function centralArc(a0,a1,r,basis){path(Array.from({length:81},(_,i)=>at(C,basis((a0+(a1-a0)*i/80)*D),r)))}
+ const meridian=a=>[Math.cos(a)*equatorial[0],Math.cos(a)*equatorial[1],Math.sin(a)];
+ if(Math.abs(latitude)>.001){
+  centralArc(0,latitude,57,meridian);const m=at(C,meridian(phi*.55),77);text([m[0]+5,m[1]-4*latitudeSign],'φ',25,'middle','math');
+ }
+ if(Math.abs(declination)>.001){
+  centralArc(0,declination,88,meridian);const m=at(C,meridian(delta*.5),113);text([m[0]+7,m[1]+(declination>=0?20:-10)],'δ',25,'middle','math');
+ }
+ // At upper transit, the incidence angle equals |latitude - declination|.
+ const elevation=90-Math.abs(latitude-declination),incidence=Math.abs(latitude-declination);
+ if(elevation>=0&&incidence>.01){
+  const side=Math.sign(noon[1])||1;
+  path(Array.from({length:61},(_,i)=>{const a=(elevation+(90-elevation)*i/60)*D;return lp(0,side*Math.cos(a),Math.sin(a),149)}));
+  const half=(elevation+90)*.5*D, label=lp(0,side*Math.cos(half),Math.sin(half),190);
+  const expr=Math.abs(latitude)<.001?'|δ|':'|φ − δ|';text(label,expr,24,'middle','math');
+ }
+ // Text belongs beside the corresponding point, never as an added panel.
+ if(noon[2]>=-1e-10){dot(noonPoint,5,RED);text([noonPoint[0]+16,noonPoint[1]-13],'Noon',17,'start','eventLabel')}
+ if(midnight[2]>=-1e-10){dot(midnightPoint,4,RED);text([midnightPoint[0]-15,midnightPoint[1]-13],'Midnight',17,'end','eventLabel')}
+ if(visible.length){const upper=visible.reduce((a,b)=>a.p[1]<b.p[1]?a:b).p;text([upper[0],upper[1]-21],'Daily solar path',23,'middle','redLabel')}
+ const defs=`<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#111"/></marker><marker id="goldArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="${GOLD}"/></marker><marker id="redArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="${RED}"/></marker><radialGradient id="earth" cx="82%" cy="31%" r="86%"><stop offset="0" stop-color="#fafafa"/><stop offset=".27" stop-color="#eee"/><stop offset=".55" stop-color="#c6c6c6"/><stop offset=".79" stop-color="#999"/><stop offset="1" stop-color="#686868"/></radialGradient><radialGradient id="shadow"><stop offset="0" stop-color="#000" stop-opacity=".13"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>`;
+ const style=`<style>text{font-family:Georgia,'Times New Roman',serif;fill:#111}.line,.fine,.dash,.arrow,.orbit,.orbitArrow,.solar,.solarArrow{fill:none;stroke:#111;stroke-linecap:round;stroke-linejoin:round}.line{stroke-width:1.8}.fine{stroke-width:1.1}.dash{stroke-width:1.25;stroke-dasharray:6 6}.arrow{stroke-width:1.8;marker-end:url(#arrow)}.orbit{stroke:${RED};stroke-width:3}.orbitArrow{stroke:${RED};stroke-width:2;marker-end:url(#redArrow)}.solar,.solarArrow{stroke:${GOLD};stroke-width:2}.solarArrow{marker-end:url(#goldArrow)}.math{font-style:italic}.redLabel,.eventLabel{fill:${RED}}.eventLabel{font-style:italic}.goldLabel{fill:${GOLD}}</style>`;
+ const minX=Math.min(...bounds.map(p=>p[0]))-65,maxX=Math.max(...bounds.map(p=>p[0]))+65,minY=Math.min(...bounds.map(p=>p[1]))-125,maxY=Math.max(...bounds.map(p=>p[1]))+55;
+ svg.setAttribute('viewBox',`${f(minX)} ${f(minY)} ${f(maxX-minX)} ${f(maxY-minY)}`);
+ svg.innerHTML=defs+style+pieces.join('');
+ svg.setAttribute('aria-label',`Earth-fixed solar geometry, latitude ${latitude} degrees, solar declination ${declination} degrees`);
+ return {latitude,declination,noonElevation:elevation,noonIncidence:incidence,midnightElevation:Math.asin(Math.max(-1,Math.min(1,midnight[2])))/D,visibleSamples:visible.length,svg:svg.innerHTML};
+}
+function update(){
+ if(latitudeInput.value.trim()===''||declinationInput.value.trim()===''||!latitudeInput.validity.valid||!declinationInput.validity.valid)return;
+ window.solarModel.state=render(Number(latitudeInput.value),Number(declinationInput.value));
+}
+window.solarModel={geometry,render,state:null,setParameters(latitude,declination){if(!Number.isFinite(latitude)||latitude< -90||latitude>90||!Number.isFinite(declination)||declination< -23.44||declination>23.44)throw new RangeError('Parameters are outside their allowed ranges');latitudeInput.value=String(latitude);declinationInput.value=String(declination);update();return this.state}};
+latitudeInput.addEventListener('input',update);declinationInput.addEventListener('input',update);update();
+</script>
+</body>
+</html>
