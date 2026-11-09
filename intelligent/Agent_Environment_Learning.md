@@ -4,15 +4,21 @@
 
 ## Reward-Guided Sequential Decision Model
 
-Let **Agent** interact with unknown **Environment**, and learn how to choose actions $A$ in the current state $S$ to find strategies $\pi$ that can maximize the cumulative Reward $G$. 
+$$
+(S, A, P, R, \gamma, \pi)
+$$
 
-<img src="./assets/Markov_diagram_v2.svg" alt="Markov_diagram_v2" style="zoom:15%;" />
-
-The Environment feeds back status $S$ and rewards $R$ based on the action $A$ of the Agent each step.
+An autonomous agent acquires and continuously improves a decision-making policy through interactions with a dynamic environment, with the objective of maximizing expected cumulative utility over a sequence of decisions. The Environment feeds back status $S$ and rewards $R$ based on the action $A$ of the Agent each step.
 
 $$
 \max_{\pi} \quad G = \sum_{t = 0}^\infty R_t  \tag{objective}
 $$
+
+<img src="./assets/Markov_diagram_v2.svg" alt="Markov_diagram_v2" style="zoom:15%;" />
+
+
+
+<img src="./assets/Markov_diagram_unrolled.svg" alt="Markov_diagram_unrolled" style="zoom: 50%;" />
 
 - $S$: State set.
 - $A$: Action set.
