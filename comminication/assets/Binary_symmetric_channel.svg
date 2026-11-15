@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg  version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="156" height="167.34" viewBox="0 0 156 167.34"
+	 overflow="visible" enable-background="new 0 0 156 167.34" xml:space="preserve">
+<text transform="matrix(1 0 0 1 0 35.9443)" font-family="Times" font-style="normal" font-size="24">0</text>
+<text transform="matrix(1 0 0 1 4.882812e-04 143.0513)" font-family="Times" font-style="normal" font-size="24">1</text>
+<text transform="matrix(1 0 0 1 144.0005 35.9443)" font-family="Times" font-style="normal" font-size="24">0</text>
+<text transform="matrix(1 0 0 1 144.0005 143.0513)" font-family="Times" font-style="normal" font-size="24">1</text>
+<text transform="matrix(1 0 0 1 54.0005 19.9438)"><tspan x="0" y="0" font-family="Times" font-style="normal" font-size="24">1 – </tspan><tspan x="36" y="0" font-family="Times" font-style="italic" font-size="24">p</tspan></text>
+<text transform="matrix(1 0 0 1 54.0005 157.0513)"><tspan x="0" y="0" font-family="Times" font-style="normal" font-size="24">1 – </tspan><tspan x="36" y="0" font-family="Times" font-style="italic" font-size="24">p</tspan></text>
+<text transform="matrix(1 0 0 1 30.7407 72.9663)" font-family="Times" font-style="italic" font-size="24">p</text>
+<text transform="matrix(1 0 0 1 30.7407 104.2651)" font-family="Times" font-style="italic" font-size="24">p</text>
+<g>
+	<line fill="none" stroke="#000000" x1="15" y1="28.944" x2="132" y2="28.944"/>
+	<path d="M134.362,27.919c-1.653-0.5-2.729-0.959-4.055-1.492v5.044c0.475-0.226,2.401-0.993,4.055-1.492
+		c1.77-0.535,3.374-0.9,4.414-1.031C137.736,28.819,136.131,28.454,134.362,27.919z"/>
+</g>
+<g>
+	<line fill="none" stroke="#000000" x1="15" y1="136.944" x2="132" y2="136.944"/>
+	<path d="M134.362,135.919c-1.653-0.499-2.729-0.96-4.055-1.491v5.044c0.475-0.226,2.401-0.993,4.055-1.491
+		c1.77-0.535,3.374-0.9,4.414-1.031C137.736,136.819,136.131,136.454,134.362,135.919z"/>
+</g>
+<g>
+	<line fill="none" stroke="#000000" x1="15" y1="37.944" x2="132" y2="127.944"/>
+	<path d="M134.497,128.572c-1.006-1.403-1.577-2.424-2.304-3.653l-3.075,3.998c0.514,0.11,2.508,0.677,4.123,1.289
+		c1.729,0.655,3.223,1.344,4.127,1.875C136.623,131.342,135.574,130.075,134.497,128.572z"/>
+</g>
+<g>
+	<line fill="none" stroke="#000000" x1="15" y1="127.944" x2="132" y2="37.944"/>
+	<path d="M133.247,35.692c-1.614,0.612-2.746,0.903-4.123,1.29l3.076,3.999c0.238-0.468,1.298-2.251,2.305-3.654
+		c1.076-1.503,2.125-2.771,2.87-3.509C136.47,34.348,134.975,35.037,133.247,35.692z"/>
+</g>
+</svg>

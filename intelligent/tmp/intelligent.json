@@ -1,0 +1,326 @@
+{
+  "Agent_Environment_Learning": {
+    "children": {
+      "Alpha_Go": "application_of",
+      "Minimax_Algorithm": "uses_planning_method",
+      "Monte_Carlo_Tree_Search": "uses_search_method",
+      "Multi_Agents_Environment_Learning": "generalized_by",
+      "Solution_Of_Markov_Decision_Process": "formalized_by"
+    },
+    "define": "> Agent-environment learning studies how an agent chooses actions from states to maximize cumulative reward.\n\nAn agent interacts with an environment, observes state and reward feedback, and learns a policy for decision making under uncertainty.",
+    "parents": {},
+    "content": "[Agent_Environment_Learning](./Agent_Environment_Learning.md)"
+  },
+  "Ai_Milestones_Since_Alexnet": {
+    "children": {},
+    "define": "> AI milestones since AlexNet record major model, dataset, architecture, and application turning points after modern deep learning accelerated.\n\nThis note functions as a timeline for understanding the development path from convolutional networks to transformers, generative models, and agentic systems.",
+    "parents": {
+      "Neural_Network": "historical_context_for"
+    },
+    "content": "[Ai_Milestones_Since_Alexnet](./Ai_Milestones_Since_Alexnet.md)"
+  },
+  "Alpha_Go": {
+    "children": {},
+    "define": "> AlphaGo is a game-playing AI system that combines neural networks with search and reinforcement learning.\n\nAlphaGo applies policy/value models and Monte Carlo tree search to the game of Go, making it a representative success case for agent-environment learning.",
+    "parents": {
+      "Agent_Environment_Learning": "application_of",
+      "Monte_Carlo_Tree_Search": "uses",
+      "Neural_Network": "uses"
+    },
+    "content": "[Alpha_Go](./Alpha_Go.md)"
+  },
+  "Bidirectional_Encoder_Representations_From_Transformers": {
+    "children": {},
+    "define": "> BERT is a transformer encoder model designed for bidirectional language representation learning.\n\nBidirectional Encoder Representations from Transformers learns contextual token embeddings for natural language understanding tasks.",
+    "parents": {
+      "Word2vec": "extends_representation_learning",
+      "Self_Attention": "uses"
+    },
+    "content": "[Bidirectional_Encoder_Representations_From_Transformers](./Bidirectional_Encoder_Representations_From_Transformers.md)"
+  },
+  "Computer_Vision": {
+    "children": {
+      "Convolution_Nerual_Network": "uses_model_family",
+      "Image_Classification": "has_task",
+      "Image_Denoising": "has_task",
+      "Object_Detection": "has_task",
+      "U_Net": "uses_architecture",
+      "Viola_Jones_Detectors": "has_classical_method",
+      "Visual_Transformer": "uses_model_family"
+    },
+    "define": "> Computer vision studies algorithms that extract information from images and visual signals.\n\nComputer vision includes feature detection, image classification, object detection, segmentation, denoising, and visual representation learning.",
+    "parents": {
+      "Neural_Network": "uses"
+    },
+    "content": "[Computer_Vision](./Computer_Vision.md)"
+  },
+  "Convolution_Nerual_Network": {
+    "children": {
+      "Region_Based_Convolution_Nerual_Network": "extends",
+      "Residual_Network": "architecture_variant",
+      "U_Net": "architecture_variant"
+    },
+    "define": "> A convolutional neural network processes grid-like data through local filters and hierarchical feature maps.\n\nCNNs are central to image understanding tasks because convolution captures spatial locality and parameter sharing.",
+    "parents": {
+      "Computer_Vision": "model_family_for",
+      "Neural_Network": "subtype_of"
+    },
+    "content": "[Convolution_Nerual_Network](./Convolution_Nerual_Network.md)"
+  },
+  "Diffusion_Model": {
+    "children": {
+      "Image_Denoising": "related_to"
+    },
+    "define": "> A diffusion model generates data by learning to reverse a gradual noising process.\n\nDiffusion models define a forward corruption process and train a neural network to denoise samples step by step, producing high-quality generative results.",
+    "parents": {
+      "Generative_Problem": "solution_family_for",
+      "Neural_Network": "implemented_with"
+    },
+    "content": "[Diffusion_Model](./Diffusion_Model.md)"
+  },
+  "Generative_Adversarial_Network": {
+    "children": {},
+    "define": "> A generative adversarial network trains a generator and discriminator in competition.\n\nGANs learn to synthesize data by having the generator produce samples that fool the discriminator, while the discriminator learns to distinguish generated samples from real data.",
+    "parents": {
+      "Generative_Problem": "solution_family_for",
+      "Neural_Network": "implemented_with"
+    },
+    "content": "[Generative_Adversarial_Network](./Generative_Adversarial_Network.md)"
+  },
+  "Generative_Pre_Trained_Transformer": {
+    "children": {},
+    "define": "> GPT is a generative transformer model trained to predict and generate token sequences.\n\nGenerative pre-trained transformers use self-attention and large-scale pretraining to model language and other sequential data.",
+    "parents": {
+      "Generative_Problem": "solution_family_for",
+      "Self_Attention": "uses"
+    },
+    "content": "[Generative_Pre_Trained_Transformer](./Generative_Pre_Trained_Transformer.md)"
+  },
+  "Generative_Problem": {
+    "children": {
+      "Diffusion_Model": "has_solution_family",
+      "Generative_Adversarial_Network": "has_solution_family",
+      "Generative_Pre_Trained_Transformer": "has_solution_family"
+    },
+    "define": "> A generative problem asks a model to approximate a data distribution and sample from it.\n\nThe goal is to learn a model distribution close to the true data distribution, enabling synthesis, completion, denoising, and prediction.",
+    "parents": {
+      "Intelligent_Problem": "related_to"
+    },
+    "content": "[Generative_Problem](./Generative_Problem.md)"
+  },
+  "Graph_Nerual_Network": {
+    "children": {},
+    "define": "> A graph neural network learns representations over nodes, edges, and graphs through message passing.\n\nGNNs update node embeddings by aggregating information from graph neighborhoods and are used for graph-structured data.",
+    "parents": {
+      "Neural_Network": "subtype_of"
+    },
+    "content": "[Graph_Nerual_Network](./Graph_Nerual_Network.md)"
+  },
+  "Image_Classification": {
+    "children": {},
+    "define": "> Image classification assigns one or more labels to an image.\n\nImage classification is a core computer vision task and is commonly solved with convolutional networks, residual networks, and visual transformers.",
+    "parents": {
+      "Computer_Vision": "task_of",
+      "Convolution_Nerual_Network": "commonly_solved_by",
+      "Residual_Network": "commonly_solved_by",
+      "Visual_Transformer": "commonly_solved_by"
+    },
+    "content": "[Image_Classification](./Image_Classification.md)"
+  },
+  "Image_Denoising": {
+    "children": {},
+    "define": "> Image denoising removes noise or degradation from visual data while preserving useful structure.\n\nDenoising is both a restoration task in computer vision and a central operation in diffusion-based generative modeling.",
+    "parents": {
+      "Computer_Vision": "task_of",
+      "Diffusion_Model": "related_to",
+      "U_Net": "commonly_solved_by"
+    },
+    "content": "[Image_Denoising](./Image_Denoising.md)"
+  },
+  "Minimax_Algorithm": {
+    "children": {},
+    "define": "> Minimax is an adversarial decision algorithm that chooses actions by optimizing against an opponent's best response.\n\nThe algorithm alternates maximizing and minimizing value estimates across game states, making it useful for two-player zero-sum games.",
+    "parents": {
+      "Agent_Environment_Learning": "planning_method_for",
+      "Multi_Agents_Environment_Learning": "game_theoretic_method_for"
+    },
+    "content": "[Minimax_Algorithm](./Minimax_Algorithm.md)"
+  },
+  "Monte_Carlo_Tree_Search": {
+    "children": {
+      "Alpha_Go": "used_by"
+    },
+    "define": "> Monte Carlo Tree Search builds a search tree using selection, expansion, simulation, and backpropagation.\n\nMCTS balances exploration and exploitation to search very large decision trees without exhaustively enumerating all outcomes.",
+    "parents": {
+      "Agent_Environment_Learning": "search_method_for"
+    },
+    "content": "[Monte_Carlo_Tree_Search](./Monte_Carlo_Tree_Search.md)"
+  },
+  "Multi_Agents_Environment_Learning": {
+    "children": {
+      "Minimax_Algorithm": "uses_game_theory_method"
+    },
+    "define": "> Multi-agent environment learning studies multiple autonomous agents interacting and learning in a shared environment.\n\nIt extends single-agent learning with cooperation, competition, communication, equilibrium, and game-theoretic considerations.",
+    "parents": {
+      "Agent_Environment_Learning": "generalization_of"
+    },
+    "content": "[Multi_Agents_Environment_Learning](./Multi_Agents_Environment_Learning.md)"
+  },
+  "Neural_Network": {
+    "children": {
+      "Ai_Milestones_Since_Alexnet": "has_historical_context",
+      "Convolution_Nerual_Network": "subtype_of",
+      "Diffusion_Model": "implements",
+      "Generative_Adversarial_Network": "implements",
+      "Graph_Nerual_Network": "subtype_of",
+      "Recurrent_Neural_Network": "subtype_of",
+      "Visual_Transformer": "architecture_variant",
+      "Word2vec": "learns_embedding",
+      "Self_Attention": "uses_mechanism"
+    },
+    "define": "> A neural network is a parameterized model composed of layers and nonlinear transformations.\n\nNeural networks learn functions from data through optimization and form the foundation of modern deep learning architectures.",
+    "parents": {},
+    "content": "[Neural_Network](./Neural_Network.md)"
+  },
+  "Object_Detection": {
+    "children": {
+      "Region_Based_Convolution_Nerual_Network": "has_method",
+      "Viola_Jones_Detectors": "has_classical_method"
+    },
+    "define": "> Object detection localizes and classifies objects within an image.\n\nObject detection extends image classification by predicting both category labels and spatial regions such as bounding boxes.",
+    "parents": {
+      "Computer_Vision": "task_of"
+    },
+    "content": "[Object_Detection](./Object_Detection.md)"
+  },
+  "Recurrent_Neural_Network": {
+    "children": {
+      "Long_Short_Term_Memory": "related_to",
+      "Gated_Recurrent_Unit": "related_to"
+    },
+    "define": "> A recurrent neural network models sequential data by carrying state across time steps.\n\nRNNs process sequences using recurrent hidden states, making them historically important for language, speech, and time-series modeling.",
+    "parents": {
+      "Neural_Network": "subtype_of"
+    },
+    "content": "[Recurrent_Neural_Network](./Recurrent_Neural_Network.md)"
+  },
+  "Region_Based_Convolution_Nerual_Network": {
+    "children": {},
+    "define": "> Region-based convolutional neural networks detect objects by classifying candidate image regions.\n\nRCNN-style methods generate region proposals, extract features with convolutional networks, classify objects, and refine bounding boxes.",
+    "parents": {
+      "Convolution_Nerual_Network": "extends",
+      "Object_Detection": "method_for"
+    },
+    "content": "[Region_Based_Convolution_Nerual_Network](./Region_Based_Convolution_Nerual_Network.md)"
+  },
+  "Residual_Network": {
+    "children": {
+      "Image_Classification": "commonly_used_for"
+    },
+    "define": "> A residual network uses skip connections so layers learn residual functions.\n\nResNet architectures make very deep neural networks easier to train by adding identity shortcuts around learned transformations.",
+    "parents": {
+      "Convolution_Nerual_Network": "architecture_variant"
+    },
+    "content": "[Residual_Network](./Residual_Network.md)"
+  },
+  "Solution_Of_Markov_Decision_Process": {
+    "children": {},
+    "define": "> Solutions of a Markov decision process estimate policies or value functions for sequential decision making.\n\nMDP solution methods include value-based and policy-based approaches for finding behavior that maximizes expected cumulative reward.",
+    "parents": {
+      "Agent_Environment_Learning": "formal_method_for"
+    },
+    "content": "[Solution_Of_Markov_Decision_Process](./Solution_Of_Markov_Decision_Process.md)"
+  },
+  "U_Net": {
+    "children": {
+      "Image_Denoising": "commonly_used_for"
+    },
+    "define": "> U-Net is an encoder-decoder convolutional architecture with skip connections for dense prediction.\n\nU-Net is widely used for image segmentation and restoration tasks because it combines local detail from early layers with high-level semantic features.",
+    "parents": {
+      "Computer_Vision": "architecture_for",
+      "Convolution_Nerual_Network": "architecture_variant"
+    },
+    "content": "[U_Net](./U_Net.md)"
+  },
+  "Viola_Jones_Detectors": {
+    "children": {},
+    "define": "> Viola-Jones detectors are classical object detection methods based on Haar-like features, integral images, AdaBoost, and cascades.\n\nThe method is historically important for real-time face detection and classical computer vision pipelines.",
+    "parents": {
+      "Computer_Vision": "classical_method_in",
+      "Object_Detection": "method_for"
+    },
+    "content": "[Viola_Jones_Detectors](./Viola_Jones_Detectors.md)"
+  },
+  "Visual_Transformer": {
+    "children": {
+      "Image_Classification": "commonly_used_for"
+    },
+    "define": "> A vision transformer applies transformer self-attention to image patches.\n\nViT treats an image as a sequence of patches and learns visual representations using transformer blocks originally developed for sequence modeling.",
+    "parents": {
+      "Computer_Vision": "model_family_for",
+      "Neural_Network": "architecture_variant",
+      "Self_Attention": "uses"
+    },
+    "content": "[Visual_Transformer](./Visual_Transformer.md)"
+  },
+  "Word2vec": {
+    "children": {
+      "Bidirectional_Encoder_Representations_From_Transformers": "preceded"
+    },
+    "define": "> Word2Vec learns vector representations of words from distributional context.\n\nWord2Vec maps words into continuous embedding spaces where semantic and syntactic relationships can be represented geometrically.",
+    "parents": {
+      "Neural_Network": "embedding_method"
+    },
+    "content": "[Word2vec](./Word2vec.md)"
+  },
+  "Self_Attention": {
+    "children": {
+      "Bidirectional_Encoder_Representations_From_Transformers": "used_by",
+      "Generative_Pre_Trained_Transformer": "used_by",
+      "Visual_Transformer": "used_by"
+    },
+    "define": "> Self-attention lets each token or patch relate to other elements in the same sequence.\n\nSelf-attention computes context-dependent representations by weighting interactions between positions, forming the core mechanism of transformer architectures.",
+    "parents": {
+      "Neural_Network": "mechanism_in"
+    },
+    "content": "[Self_Attention](./Self_Attention.md)"
+  },
+  "Large_Language_Model": {
+    "define": "",
+    "parents": {
+      "Intelligent_Problem": "related_to"
+    },
+    "children": {
+      "Harness_Engineering": "related_to"
+    }
+  },
+  "Harness_Engineering": {
+    "define": "",
+    "parents": {
+      "Large_Language_Model": "related_to"
+    },
+    "children": {}
+  },
+  "Intelligent_Problem": {
+    "define": "",
+    "parents": {},
+    "children": {
+      "Generative_Problem": "related_to",
+      "Large_Language_Model": "related_to"
+    }
+  },
+  "Long_Short_Term_Memory": {
+    "define": "",
+    "parents": {
+      "Recurrent_Neural_Network": "related_to"
+    },
+    "children": {}
+  },
+  "Gated_Recurrent_Unit": {
+    "define": "",
+    "parents": {
+      "Recurrent_Neural_Network": "related_to"
+    },
+    "children": {}
+  }
+}

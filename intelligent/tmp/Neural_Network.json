@@ -1,0 +1,110 @@
+{
+  "Bidirectional_Encoder_Representations_From_Transformers": {
+    "children": {},
+    "define": "> BERT is a transformer encoder model designed for bidirectional language representation learning.\n\nBidirectional Encoder Representations from Transformers learns contextual token embeddings for natural language understanding tasks.",
+    "parents": {
+      "Self_Attention": "used_by"
+    },
+    "content": "[Bidirectional_Encoder_Representations_From_Transformers](./Bidirectional_Encoder_Representations_From_Transformers.md)"
+  },
+  "Convolution_Neural_Network": {
+    "children": {
+      "Region_Based_Convolution_Neural_Network": "extends",
+      "Residual_Network": "architecture_variant",
+      "U_Net": "architecture_variant"
+    },
+    "define": "> A convolutional neural network processes grid-like data through local filters and hierarchical feature maps.\n\nCNNs are central to image understanding tasks because convolution captures spatial locality and parameter sharing.",
+    "parents": {
+      "Neural_Network": "subtype_of"
+    },
+    "content": "[Convolution_Neural_Network](./Convolution_Neural_Network.md)"
+  },
+  "Graph_Neural_Network": {
+    "children": {},
+    "define": "> A graph neural network learns representations over nodes, edges, and graphs through message passing.\n\nGNNs update node embeddings by aggregating information from graph neighborhoods and are used for graph-structured data.",
+    "parents": {
+      "Neural_Network": "subtype_of"
+    },
+    "content": "[Graph_Neural_Network](./Graph_Neural_Network.md)"
+  },
+  "Neural_Network": {
+    "children": {
+      "Convolution_Neural_Network": "subtype_of",
+      "Graph_Neural_Network": "subtype_of",
+      "Recurrent_Neural_Network": "subtype_of"
+    },
+    "define": "> A neural network is a parameterized model composed of layers and nonlinear transformations.\n\nNeural networks learn functions from data through optimization and form the foundation of modern deep learning architectures.",
+    "parents": {},
+    "content": "[Neural_Network](./Neural_Network.md)"
+  },
+  "Recurrent_Neural_Network": {
+    "children": {
+      "Long_Short_Term_Memory": "related_to",
+      "Gated_Recurrent_Unit": "related_to"
+    },
+    "define": "> A recurrent neural network models sequential data by carrying state across time steps.\n\nRNNs process sequences using recurrent hidden states, making them historically important for language, speech, and time-series modeling.",
+    "parents": {
+      "Neural_Network": "subtype_of"
+    },
+    "content": "[Recurrent_Neural_Network](./Recurrent_Neural_Network.md)"
+  },
+  "Region_Based_Convolution_Neural_Network": {
+    "children": {},
+    "define": "> Region-based convolutional neural networks detect objects by classifying candidate image regions.\n\nRCNN-style methods generate region proposals, extract features with convolutional networks, classify objects, and refine bounding boxes.",
+    "parents": {
+      "Convolution_Neural_Network": "extends"
+    },
+    "content": "[Region_Based_Convolution_Neural_Network](./Region_Based_Convolution_Neural_Network.md)"
+  },
+  "Residual_Network": {
+    "children": {
+      "Self_Attention": "related_to"
+    },
+    "define": "> A residual network uses skip connections so layers learn residual functions.\n\nResNet architectures make very deep neural networks easier to train by adding identity shortcuts around learned transformations.",
+    "parents": {
+      "Convolution_Neural_Network": "architecture_variant"
+    },
+    "content": "[Residual_Network](./Residual_Network.md)"
+  },
+  "U_Net": {
+    "children": {},
+    "define": "> U-Net is an encoder-decoder convolutional architecture with skip connections for dense prediction.\n\nU-Net is widely used for image segmentation and restoration tasks because it combines local detail from early layers with high-level semantic features.",
+    "parents": {
+      "Convolution_Neural_Network": "architecture_variant"
+    },
+    "content": "[U_Net](./U_Net.md)"
+  },
+  "Visual_Transformer": {
+    "children": {},
+    "define": "> A vision transformer applies transformer self-attention to image patches.\n\nViT treats an image as a sequence of patches and learns visual representations using transformer blocks originally developed for sequence modeling.",
+    "parents": {
+      "Self_Attention": "used_by"
+    },
+    "content": "[Visual_Transformer](./Visual_Transformer.md)"
+  },
+  "Long_Short_Term_Memory": {
+    "define": "",
+    "parents": {
+      "Recurrent_Neural_Network": "related_to"
+    },
+    "children": {}
+  },
+  "Gated_Recurrent_Unit": {
+    "define": "",
+    "parents": {
+      "Recurrent_Neural_Network": "related_to"
+    },
+    "children": {}
+  },
+  "Self_Attention": {
+    "children": {
+      "Bidirectional_Encoder_Representations_From_Transformers": "used_by",
+      "Visual_Transformer": "used_by"
+    },
+    "define": "> Self-attention lets each token or patch relate to other elements in the same sequence.\n\nSelf-attention computes context-dependent representations by weighting interactions between positions, forming the core mechanism of transformer architectures.",
+    "parents": {
+      "Residual_Network": "related_to"
+    },
+    "content": "[Self_Attention](./Self_Attention.md)"
+  }
+}

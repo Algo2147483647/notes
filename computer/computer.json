@@ -1,0 +1,362 @@
+{
+  "Address_Space_Abstraction": {
+    "children": {},
+    "define": "> Address space abstraction gives each process a private, virtual view of memory.\n\nAddress space abstraction maps program-visible virtual addresses to physical memory, isolating processes and allowing the operating system to manage protection, relocation, and sharing.",
+    "parents": {
+      "Memory_Management": "uses",
+      "Operating_System": "provides"
+    },
+    "content": "[Address_Space_Abstraction](./Address_Space_Abstraction.md)"
+  },
+  "C": {
+    "children": {
+      "Cpp": "influences"
+    },
+    "define": "> C is a procedural systems programming language close to machine memory and execution models.\n\nC is widely used for operating systems, embedded systems, runtimes, and performance-sensitive software. It exposes low-level memory control while remaining portable across hardware platforms.",
+    "parents": {
+      "Programming_Language": "subtype_of"
+    },
+    "content": "[C](./C.md)"
+  },
+  "Computer": {
+    "children": {
+      "Computer_Network_Communications": "has_domain",
+      "Concurrent_Computing": "has_computing_model",
+      "Operating_System": "has_system_layer",
+      "Parallel_Computing": "has_computing_model",
+      "Programming_Language": "has_programming_model",
+      "Service": "has_application_architecture",
+      "Version_Management": "has_engineering_practice"
+    },
+    "define": "> A computer is a programmable machine that represents, stores, transforms, and communicates information.\n\nComputer systems can be studied from formal computation models, programming languages, operating systems, networks, storage systems, and software engineering practices.",
+    "parents": {},
+    "content": "[Computer](./Computer.md)"
+  },
+  "Computer_Network_Communications": {
+    "children": {
+      "Message_Queue": "uses_for_async_communication",
+      "Nginx": "uses_as_network_service",
+      "Remote_Procedure_Call": "supports",
+      "Transmission_Control_Protocol": "has_transport_protocol"
+    },
+    "define": "> Computer network communications move data between computing systems through layered protocols.\n\nNetwork communication covers layering models, addressing, transport protocols, routing, and application-level communication mechanisms used by distributed software.",
+    "parents": {
+      "Computer": "has_domain"
+    },
+    "content": "[Computer_Network_Communications](./Computer_Network_Communications.md)"
+  },
+  "Concurrent_Computing": {
+    "children": {
+      "Distributed_Lock": "needs_coordination_mechanism",
+      "Message_Queue": "uses_for_coordination",
+      "Process_Management": "depends_on"
+    },
+    "define": "> Concurrent computing coordinates multiple tasks whose executions overlap in time.\n\nConcurrency focuses on scheduling, synchronization, shared resources, communication, and correctness when multiple execution flows progress together.",
+    "parents": {
+      "Computer": "has_computing_model",
+      "Operating_System": "supports",
+      "Process_Management": "enables"
+    },
+    "content": "[Concurrent_Computing](./Concurrent_Computing.md)"
+  },
+  "Cpp": {
+    "children": {
+      "Standard_Template_Library": "has_standard_library"
+    },
+    "define": "> C++ is a multi-paradigm systems programming language extending C with abstraction mechanisms.\n\nC++ supports procedural, object-oriented, generic, and low-level programming, and is commonly used where performance and control over resources matter.",
+    "parents": {
+      "C": "influences",
+      "Programming_Language": "subtype_of"
+    },
+    "content": "[Cpp](./Cpp.md)"
+  },
+  "Distributed_Lock": {
+    "children": {},
+    "define": "> A distributed lock coordinates exclusive access to a shared resource across multiple processes or machines.\n\nDistributed locks are used when concurrency control crosses process or host boundaries. They are often implemented with systems such as Redis and require careful handling of timeouts, ownership, and failure modes.",
+    "parents": {
+      "Concurrent_Computing": "needs_coordination_mechanism",
+      "Parallel_Computing": "needs_coordination_mechanism",
+      "Redis": "implements"
+    },
+    "content": "[Distributed_Lock](./Distributed_Lock.md)"
+  },
+  "Elasticsearch": {
+    "children": {},
+    "define": "> Elasticsearch is a distributed search and analytics engine.\n\nElasticsearch indexes structured and unstructured data for full-text search, log analysis, vector search, and production-scale retrieval workloads.",
+    "parents": {
+      "Service": "uses_infrastructure_component"
+    },
+    "content": "[Elasticsearch](./Elasticsearch.md)"
+  },
+  "Garbage_Collection": {
+    "children": {},
+    "define": "> Garbage collection automatically reclaims memory that is no longer reachable by a program.\n\nGarbage collection is a runtime memory-management technique that detects unreachable objects and frees storage without explicit deallocation by the programmer.",
+    "parents": {
+      "Java_Virtual_Machine": "provides",
+      "Memory_Management": "includes",
+      "Programming_Language": "has_runtime_mechanism"
+    },
+    "content": "[Garbage_Collection](./Garbage_Collection.md)"
+  },
+  "Geo_Gistributed_Active_Active_Disaster_Recovery": {
+    "children": {},
+    "define": "> Geo-distributed active-active disaster recovery keeps services available across multiple geographic sites.\n\nAn active-active design runs multiple sites at the same time so traffic and data can continue through regional failures, trading implementation complexity for resilience.",
+    "parents": {
+      "Parallel_Computing": "related_distributed_pattern",
+      "Service": "uses_availability_pattern"
+    },
+    "content": "[Geo_Gistributed_Active_Active_Disaster_Recovery](./Geo_Gistributed_Active_Active_Disaster_Recovery.md)"
+  },
+  "Golang": {
+    "children": {},
+    "define": "> Go is a compiled programming language designed for simple, concurrent, networked software.\n\nGolang emphasizes readable syntax, fast builds, garbage collection, goroutines, channels, and practical tooling for service development.",
+    "parents": {
+      "Programming_Language": "subtype_of"
+    },
+    "content": "[Golang](./Golang.md)"
+  },
+  "Java": {
+    "children": {
+      "Java_Virtual_Machine": "runs_on",
+      "Spring": "has_framework"
+    },
+    "define": "> Java is an object-oriented programming language designed around portable bytecode execution.\n\nJava programs commonly compile to bytecode that runs on the Java Virtual Machine, enabling portability, managed memory, and a broad ecosystem of server-side frameworks.",
+    "parents": {
+      "Programming_Language": "subtype_of"
+    },
+    "content": "[Java](./Java.md)"
+  },
+  "Java_Virtual_Machine": {
+    "children": {
+      "Garbage_Collection": "provides"
+    },
+    "define": "> The Java Virtual Machine executes Java bytecode and manages runtime services.\n\nThe JVM provides class loading, bytecode interpretation or compilation, runtime memory areas, threading support, and garbage collection.",
+    "parents": {
+      "Java": "runs_on",
+      "Programming_Language": "has_runtime"
+    },
+    "content": "[Java_Virtual_Machine](./Java_Virtual_Machine.md)"
+  },
+  "Linux": {
+    "children": {},
+    "define": "> Linux is a Unix-like operating system kernel and ecosystem.\n\nLinux provides process scheduling, memory management, file systems, networking, device management, and command-line tools used across servers, desktops, and embedded systems.",
+    "parents": {
+      "Operating_System": "subtype_of"
+    },
+    "content": "[Linux](./Linux.md)"
+  },
+  "Memory_Management": {
+    "children": {
+      "Address_Space_Abstraction": "uses",
+      "Garbage_Collection": "includes",
+      "Memory_Partitioning": "includes"
+    },
+    "define": "> Memory management controls allocation, protection, mapping, and reclamation of memory resources.\n\nIn computer systems, memory management reconciles limited physical memory with program needs through allocation strategies, address spaces, paging, protection, and reclamation.",
+    "parents": {
+      "Operating_System": "has_subsystem"
+    },
+    "content": "[Memory_Management](./Memory_Management.md)"
+  },
+  "Memory_Partitioning": {
+    "children": {},
+    "define": "> Memory partitioning divides memory into regions with different lifetimes, purposes, and access patterns.\n\nCommon partitions include code, static data, stack, heap, and memory-mapped areas. Partitioning supports efficient allocation, protection, and program organization.",
+    "parents": {
+      "Memory_Management": "includes"
+    },
+    "content": "[Memory_Partitioning](./Memory_Partitioning.md)"
+  },
+  "Message_Queue": {
+    "children": {
+      "Kafka": "related_to",
+      "RocketMQ": "related_to"
+    },
+    "define": "> A message queue enables asynchronous communication through queued messages.\n\nMessage queues decouple producers and consumers, smooth traffic bursts, support retries, and are used for inter-process communication, service integration, and distributed workflows.",
+    "parents": {
+      "Computer_Network_Communications": "uses_for_async_communication",
+      "Concurrent_Computing": "uses_for_coordination",
+      "Service": "uses_integration_component"
+    },
+    "content": "[Message_Queue](./Message_Queue.md)"
+  },
+  "Mysql": {
+    "children": {},
+    "define": "> MySQL is a relational database management system.\n\nMySQL stores structured data in relational tables and supports SQL querying, transactions, indexes, query optimization, replication, and common application persistence workloads.",
+    "parents": {
+      "Relational_Database": "implementation_of",
+      "Service": "uses_data_component"
+    },
+    "content": "[Mysql](./Mysql.md)"
+  },
+  "Nginx": {
+    "children": {},
+    "define": "> Nginx is a web server, reverse proxy, and load balancer.\n\nNginx is commonly used to route traffic, serve static files, terminate TLS, proxy requests to backend services, and balance load across upstream servers.",
+    "parents": {
+      "Computer_Network_Communications": "uses_as_network_service",
+      "Service": "uses_gateway_component"
+    },
+    "content": "[Nginx](./Nginx.md)"
+  },
+  "Operating_System": {
+    "children": {
+      "Address_Space_Abstraction": "provides",
+      "Concurrent_Computing": "supports",
+      "Linux": "subtype_of",
+      "Memory_Management": "has_subsystem",
+      "Process_Management": "has_subsystem"
+    },
+    "define": "> An operating system manages hardware resources and provides abstractions for programs.\n\nOperating systems coordinate processes, memory, files, devices, networking, protection, and resource sharing between applications and hardware.",
+    "parents": {
+      "Computer": "has_system_layer"
+    },
+    "content": "[Operating_System](./Operating_System.md)"
+  },
+  "Parallel_Computing": {
+    "children": {
+      "Distributed_Lock": "needs_coordination_mechanism",
+      "Geo_Gistributed_Active_Active_Disaster_Recovery": "related_distributed_pattern"
+    },
+    "define": "> Parallel computing executes multiple computations at the same time to improve throughput or solve larger problems.\n\nParallel computing includes multi-core execution, distributed systems, coordination, consistency, availability, and failure-handling concerns.",
+    "parents": {
+      "Computer": "has_computing_model"
+    },
+    "content": "[Parallel_Computing](./Parallel_Computing.md)"
+  },
+  "Process_Management": {
+    "children": {
+      "Concurrent_Computing": "enables"
+    },
+    "define": "> Process management creates, schedules, coordinates, and terminates executing programs.\n\nA process is a running instance of a program with its own resources and state. Process management handles lifecycle, scheduling, states, inter-process coordination, and resource ownership.",
+    "parents": {
+      "Concurrent_Computing": "depends_on",
+      "Operating_System": "has_subsystem"
+    },
+    "content": "[Process_Management](./Process_Management.md)"
+  },
+  "Programming_Language": {
+    "children": {
+      "C": "subtype_of",
+      "Cpp": "subtype_of",
+      "Garbage_Collection": "has_runtime_mechanism",
+      "Golang": "subtype_of",
+      "Java": "subtype_of",
+      "Java_Virtual_Machine": "has_runtime"
+    },
+    "define": "> A programming language is a formal language for expressing computations to be executed by machines.\n\nProgramming languages provide syntax, semantics, type systems, abstractions, libraries, and runtime models for building software.",
+    "parents": {
+      "Computer": "has_programming_model"
+    },
+    "content": "[Programming_Language](./Programming_Language.md)"
+  },
+  "Redis": {
+    "children": {
+      "Distributed_Lock": "implements"
+    },
+    "define": "> Redis is an in-memory data structure store used as a cache, database, message broker, and coordination component.\n\nRedis provides data structures such as strings, hashes, lists, sets, and sorted sets, and is often used for caching, counters, queues, and distributed locks.",
+    "parents": {
+      "Cache": "related_to"
+    },
+    "content": "[Redis](./Redis.md)"
+  },
+  "Relational_Database": {
+    "children": {
+      "Mysql": "implementation_of"
+    },
+    "define": "> A relational database stores data as relations and uses keys, constraints, and transactions to preserve structure.\n\nRelational databases organize data into tables, support SQL, normalize schemas, and provide transactional guarantees for application state.",
+    "parents": {
+      "Service": "uses_data_model"
+    },
+    "content": "[Relational_Database](./Relational_Database.md)"
+  },
+  "Remote_Procedure_Call": {
+    "children": {},
+    "define": "> Remote procedure call lets a program invoke behavior on another process or machine as if it were local.\n\nRPC abstracts network communication behind request-response procedure calls, helping distributed services communicate through defined interfaces.",
+    "parents": {
+      "Computer_Network_Communications": "supports",
+      "Service": "uses_communication"
+    },
+    "content": "[Remote_Procedure_Call](./Remote_Procedure_Call.md)"
+  },
+  "Service": {
+    "children": {
+      "Elasticsearch": "uses_infrastructure_component",
+      "Geo_Gistributed_Active_Active_Disaster_Recovery": "uses_availability_pattern",
+      "Message_Queue": "uses_integration_component",
+      "Mysql": "uses_data_component",
+      "Nginx": "uses_gateway_component",
+      "Relational_Database": "uses_data_model",
+      "Remote_Procedure_Call": "uses_communication",
+      "Spring": "uses_framework",
+      "Cache": "related_to"
+    },
+    "define": "> A service is a software component that exposes capabilities to other components through an interface.\n\nIn engineering systems, services are built from application frameworks, data stores, communication protocols, gateways, queues, and reliability patterns.",
+    "parents": {
+      "Computer": "has_application_architecture"
+    },
+    "content": "[Service](./Service.md)"
+  },
+  "Spring": {
+    "children": {},
+    "define": "> Spring is a Java application framework for building enterprise and service-oriented software.\n\nSpring provides dependency injection, application configuration, transaction integration, web frameworks, and a broad ecosystem for Java service development.",
+    "parents": {
+      "Java": "has_framework",
+      "Service": "uses_framework"
+    },
+    "content": "[Spring](./Spring.md)"
+  },
+  "Standard_Template_Library": {
+    "children": {},
+    "define": "> The Standard Template Library is the generic container and algorithm library of C++.\n\nSTL provides containers, iterators, algorithms, function objects, adapters, and allocators as reusable generic programming building blocks.",
+    "parents": {
+      "Cpp": "has_standard_library"
+    },
+    "content": "[Standard_Template_Library](./Standard_Template_Library.md)"
+  },
+  "Transmission_Control_Protocol": {
+    "children": {},
+    "define": "> Transmission Control Protocol provides reliable, ordered, connection-oriented byte-stream transport over IP networks.\n\nTCP handles connection establishment, sequencing, acknowledgements, retransmission, flow control, and congestion control for network applications.",
+    "parents": {
+      "Computer_Network_Communications": "has_transport_protocol"
+    },
+    "content": "[Transmission_Control_Protocol](./Transmission_Control_Protocol.md)"
+  },
+  "Version_Management": {
+    "children": {
+      "Git": "related_to"
+    },
+    "define": "> Version management tracks changes to files and coordinates software history over time.\n\nVersion control systems such as Git record revisions, branches, merges, and collaboration workflows for software projects and documentation.",
+    "parents": {
+      "Computer": "has_engineering_practice"
+    },
+    "content": "[Version_Management](./Version_Management.md)"
+  },
+  "Git": {
+    "define": "",
+    "parents": {
+      "Version_Management": "related_to"
+    },
+    "children": {}
+  },
+  "Kafka": {
+    "define": "",
+    "parents": {
+      "Message_Queue": "related_to"
+    },
+    "children": {}
+  },
+  "RocketMQ": {
+    "define": "",
+    "parents": {
+      "Message_Queue": "related_to"
+    },
+    "children": {}
+  },
+  "Cache": {
+    "define": "",
+    "parents": {
+      "Service": "related_to"
+    },
+    "children": {
+      "Redis": "related_to"
+    }
+  }
+}
