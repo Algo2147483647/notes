@@ -190,21 +190,7 @@ Branch-level Coordination Policy defines how sibling nodes under the same parent
 - **Priority Selection**: Sibling nodes are evaluated in a predefined priority order, and the first node whose condition is satisfied is selected for execution. Lower-priority siblings are invalidated or skipped. This policy is useful when multiple branches may be valid at the same time but the business requires deterministic selection.
 - **Sequential Dependency**: Sibling nodes are logically ordered even though they share the same parent. A later sibling can start only after the previous sibling has completed. This policy is useful when the graph structure groups several related child nodes under the same parent for modeling convenience, but the runtime must still execute them in a deterministic sequence.
 
-### Communication
 
-In an ECA-based strategy execution model, communication defines how execution results, state changes, and contextual data are propagated across ECA Nodes and across Strategies.
-
-#### Cross-Node Communication
-
-Cross-node communication describes how one ECA Node influences another node within the same ECA Graph. There are three common communication mechanisms between ECA Nodes.
-
-1. **Communication by event**:
-
-2. **Communication to condition**: 
-
-#### Cross-Strategy Communication
-
-Cross-strategy communication describes how one Strategy interacts with another Strategy.
 
 
 

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="1030" viewBox="0 0 1160 1030" font-family="Times New Roman, Songti SC, SimSun, serif" role="img" aria-label="Canvas、Task Graph 与三层 Task 的 TCA 模型">
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="1030" viewBox="0 0 1160 1030" font-family="Times New Roman, Songti SC, SimSun, serif" role="img" aria-label="Strategy、Task Graph 与三层 Task 的 ECA 模型">
   <defs>
     <filter id="node-shadow" x="-30%" y="-30%" width="160%" height="170%" color-interpolation-filters="sRGB">
       <feDropShadow dx="0" dy="5" stdDeviation="6.5" flood-color="#25384f" flood-opacity=".14" />
@@ -41,7 +41,7 @@
     <path d="M571.82 764.82 L658.18 851.18" />
   </g>
   <rect fill="#dbeafe" filter="url(#node-shadow)" x="410.0" y="30.0" width="260" height="110" rx="18" />
-  <text x="540.0" y="85.0" text-anchor="middle" dominant-baseline="central" font-size="30" fill="#25384f">Canvas</text>
+  <text x="540.0" y="85.0" text-anchor="middle" dominant-baseline="central" font-size="30" fill="#25384f">Strategy</text>
   <rect fill="#fce0e0" filter="url(#node-shadow)" x="50.0" y="270.0" width="260" height="110" rx="18" />
   <text x="180.0" y="325.0" text-anchor="middle" dominant-baseline="central" font-size="30" fill="#25384f">Task Graph</text>
   <rect fill="#fce0e0" filter="url(#node-shadow)" x="410.0" y="270.0" width="260" height="110" rx="18" />
@@ -67,9 +67,9 @@
   <circle fill="#fff3ce" filter="url(#node-shadow)" cx="690.0" cy="883.0" r="45" />
   <text x="690.0" y="883.0" text-anchor="middle" dominant-baseline="central" font-size="26" fill="#25384f">Task</text>
   <rect x="870" y="633" width="140" height="200" rx="13" fill="white" filter="url(#tca-shadow)" />
-  <text x="940" y="652" text-anchor="middle" dominant-baseline="central" font-size="25" fill="#25384f">TCA</text>
+  <text x="940" y="652" text-anchor="middle" dominant-baseline="central" font-size="25" fill="#25384f">ECA</text>
   <rect x="880" y="677" width="120" height="48" rx="9" fill="#eaf3ff" />
-  <text x="940" y="701" text-anchor="middle" dominant-baseline="central" font-size="21" fill="#376b9b">Trigger</text>
+  <text x="940" y="701" text-anchor="middle" dominant-baseline="central" font-size="21" fill="#376b9b">Event</text>
   <rect x="880" y="726" width="120" height="48" rx="9" fill="#fff8df" />
   <text x="940" y="750" text-anchor="middle" dominant-baseline="central" font-size="21" fill="#8a6b18">Condition</text>
   <rect x="880" y="775" width="120" height="48" rx="9" fill="#fde8e8" />

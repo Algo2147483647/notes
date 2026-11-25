@@ -114,7 +114,7 @@ A single task node can independently handle triggering, condition evaluation, an
 
 1. **Task**: An individual task node is responsible for a specific unit of work. It receives triggering events through a Trigger, determines whether execution should proceed through Conditions, and performs concrete operations through Actions.
 2. **Task Graph**: When multiple nodes collectively fulfill a business process, their dependencies, branching, convergence, and collaboration constraints must be explicitly defined, forming a Task Graph. A Task Graph consists of Tasks as nodes and directed edges representing control dependencies between predecessor and successor nodes.
-3. **Canvas**: A Canvas organizes multiple Task Graphs at a higher level, providing centralized orchestration, a unified structural view, and a common management entry point for task graphs within the same business scenario. It primarily serves as a logical container and does not necessarily require an independently persisted entity. Related task graphs may simply be associated through a shared, convention-based identifier.
+3. **Strategy**: A Strategy organizes multiple Task Graphs at a higher level, providing centralized orchestration, a unified structural view, and a common management entry point for task graphs within the same business scenario. It primarily serves as a logical container and does not necessarily require an independently persisted entity. Related task graphs may simply be associated through a shared, convention-based identifier.
 
 ![task-model-tca](./assets/task-model-tca.svg)
 
