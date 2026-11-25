@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2598" height="3736" viewBox="0 0 2598 3736" role="img" aria-labelledby="title" xml:lang="en">
+  <title id="title">Task Execution Limits</title>
+  <defs>
+    <marker id="time-arrow" viewBox="0 0 27 27" markerWidth="27" markerHeight="27" refX="23" refY="13.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M4 4l19 9.5L4 23" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="window-arrow" viewBox="0 0 27 27" markerWidth="27" markerHeight="27" refX="23" refY="13.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M4 4l19 9.5L4 23" fill="none" stroke="#a33" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <path id="timeline" d="M315 0h2158" fill="none" stroke="#222" stroke-width="3" marker-end="url(#time-arrow)"/>
+    <circle id="allowed" r="13" fill="#173"/>
+    <circle id="rejected" r="13" fill="#c22"/>
+    <style>
+      text { font-family: "Times New Roman", Times, serif; fill: #111; }
+      .heading { font-size: 54px; }
+      .label { font-size: 34px; text-anchor: middle; }
+      .option { font-size: 30px; }
+      .configurable { font-size: 22px; }
+      .cooldown-label { font-size: 26px; }
+      .cooldown-label .configurable { font-size: 19px; }
+      .guide { fill: none; stroke: #aaa; stroke-width: 3; stroke-dasharray: 3 6; stroke-linecap: round; }
+      .cap, .bracket { fill: none; stroke: #222; stroke-width: 3; }
+      .run { fill: #def; }
+      .run-label { fill: #246; }
+      .allowed { fill: #173; }
+      .rejected, .window-label { fill: #a33; }
+      .cooldown { fill: #fff0bf; }
+      .window { fill: #ffe6e6; }
+      .boundary { fill: none; stroke: #a33; stroke-width: 3; }
+      .window-shift { marker-end: url(#window-arrow); }
+    </style>
+  </defs>
+
+  <rect width="2598" height="3736" fill="#fff"/>
+
+  <g aria-label="One Run Only">
+    <text class="heading" x="109" y="160">One Run Only</text>
+
+    <path class="guide" d="M373 291v111M713 291v220M1050 291v111M1726 291v221"/>
+    <use href="#timeline" y="291"/>
+
+    <rect class="run" x="373" y="386" width="677" height="79" rx="16"/>
+    <path class="cap" d="M373 403v42M1050 403v42"/>
+    <text class="label run-label" x="712" y="441">Running</text>
+
+    <use href="#rejected" x="713" y="511"/>
+    <use href="#rejected" x="1726" y="512"/>
+    <text class="label rejected" x="713" y="594">Rejected</text>
+    <text class="label rejected" x="1726" y="594">Rejected</text>
+  </g>
+
+  <g aria-label="Repeated Runs Allowed">
+    <text class="heading" x="112" y="894">Repeated Runs Allowed</text>
+
+    <text class="label option" x="1220" y="954">Concurrency Limit <tspan class="configurable" dy="8">(Configurable)</tspan></text>
+    <path class="bracket" d="M1051 970v21h337v-21"/>
+
+    <path class="guide" d="M378 1026v111M717 1026v220M1053 1026v307M1221 1026v410M1388 1026v115M2060 1026v199M2399 1026v285"/>
+    <use href="#timeline" y="1026"/>
+
+    <rect class="run" x="378" y="1121" width="1010" height="79" rx="16"/>
+    <rect class="run" x="717" y="1207" width="1343" height="78" rx="16"/>
+    <rect class="run" x="1053" y="1293" width="1346" height="78" rx="16"/>
+    <path class="cap" d="M378 1136v42M1388 1141v42M2060 1225v42M2399 1310v42"/>
+    <text class="label run-label" x="883" y="1177">Running</text>
+    <text class="label run-label" x="1388" y="1263">Running</text>
+    <text class="label run-label" x="1726" y="1350">Running</text>
+
+    <use href="#allowed" x="717" y="1246"/>
+    <use href="#allowed" x="1053" y="1333"/>
+    <use href="#rejected" x="1221" y="1436"/>
+    <text class="label allowed" x="717" y="1327">Allowed</text>
+    <text class="label allowed" x="1053" y="1414">Allowed</text>
+    <text class="label rejected" x="1221" y="1505">Rejected</text>
+  </g>
+
+  <g aria-label="Repeated Runs Allowed, No Concurrency">
+    <text class="heading" x="112" y="1694">Repeated Runs Allowed, No Concurrency</text>
+
+    <text class="label option rejected" x="2290" y="1784">Maximum Runs <tspan class="configurable" dy="8">(Configurable)</tspan></text>
+    <path class="guide" d="M381 1822v111M720 1822v216M1139 1822v111M1519 1822v301M2192 1822v281M2344 1822v304"/>
+    <use href="#timeline" y="1822"/>
+
+    <rect class="run" x="381" y="1915" width="758" height="77" rx="16"/>
+    <rect class="cooldown" x="1139" y="1915" width="268" height="77" rx="16"/>
+    <rect class="run" x="1519" y="2085" width="673" height="78" rx="16"/>
+    <path class="cap" d="M381 1933v42M1139 1933v42M1407 1933v42M2192 2103v42"/>
+    <text class="label run-label" x="760" y="1969">Running</text>
+    <text class="label cooldown-label" x="1273" y="1963">Cooldown <tspan class="configurable" dy="7">(Configurable)</tspan></text>
+    <text class="label run-label" x="1855" y="2139">Running</text>
+
+    <use href="#rejected" x="720" y="2038"/>
+    <use href="#allowed" x="1519" y="2123"/>
+    <use href="#rejected" x="2344" y="2126"/>
+    <text class="label rejected" x="720" y="2118">Rejected</text>
+    <text class="label allowed" x="1519" y="2203">Allowed</text>
+    <text class="label rejected" x="2344" y="2207">Rejected</text>
+  </g>
+
+  <g aria-label="Per-Interval Limit">
+    <text class="heading" x="112" y="2420">Per-Interval Limit</text>
+
+    <rect class="window" x="380" y="2475" width="2020" height="73"/>
+    <path class="boundary" d="M1388 2475v525"/>
+    <text class="label window-label" x="884" y="2525">Interval 1</text>
+    <text class="label window-label" x="1894" y="2525">Interval 2</text>
+
+    <path class="guide" d="M549 2548v112M886 2548v265M1221 2548v112M1556 2548v132M2230 2548v112M2316 2548v270"/>
+    <use href="#timeline" y="2548"/>
+
+    <rect class="run" x="549" y="2642" width="672" height="78" rx="16"/>
+    <rect class="run" x="1556" y="2642" width="674" height="78" rx="16"/>
+    <path class="cap" d="M549 2660v42M1221 2660v42M2230 2660v42"/>
+    <text class="label run-label" x="885" y="2697">Running</text>
+    <text class="label run-label" x="1893" y="2697">Running</text>
+
+    <use href="#rejected" x="886" y="2813"/>
+    <use href="#allowed" x="1556" y="2680"/>
+    <use href="#rejected" x="2316" y="2818"/>
+    <text class="label rejected" x="886" y="2894">Rejected</text>
+    <text class="label allowed" x="1556" y="2761">Allowed</text>
+    <text class="label rejected" x="2316" y="2899">Rejected</text>
+  </g>
+
+  <g aria-label="Sliding Window Limit">
+    <text class="heading" x="112" y="3148">Sliding Window Limit</text>
+
+    <rect class="window" x="530" y="3204" width="903" height="74"/>
+    <rect class="window" x="846" y="3286" width="903" height="73"/>
+    <path class="boundary" d="M530 3204v155M1433 3204v82M846 3286v73M1749 3286v73"/>
+    <path class="boundary window-shift" d="M1455 3241h249"/>
+    <text class="label window-label" x="982" y="3257">Sliding Window &#183; Limit Reached</text>
+    <text class="label window-label" x="1298" y="3338">Sliding Window &#183; Quota Restored</text>
+
+    <path class="guide" d="M620 3359v112M1027 3359v112M1433 3359v133M1749 3359v133"/>
+    <use href="#timeline" y="3359"/>
+
+    <rect class="run" x="620" y="3453" width="339" height="78" rx="16"/>
+    <rect class="run" x="1027" y="3453" width="338" height="78" rx="16"/>
+    <rect class="run" x="1749" y="3453" width="339" height="78" rx="16"/>
+    <path class="cap" d="M620 3471v42M959 3471v42M1027 3471v42M1365 3471v42M2088 3471v42"/>
+    <text class="label run-label" x="789" y="3509">Running</text>
+    <text class="label run-label" x="1196" y="3509">Running</text>
+    <text class="label run-label" x="1919" y="3509">Running</text>
+
+    <use href="#rejected" x="1433" y="3492"/>
+    <use href="#allowed" x="1749" y="3492"/>
+    <text class="label rejected" x="1433" y="3571">Rejected</text>
+    <text class="label allowed" x="1749" y="3571">Allowed</text>
+  </g>
+</svg>

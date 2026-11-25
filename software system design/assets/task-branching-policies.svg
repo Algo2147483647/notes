@@ -1,0 +1,232 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3943" height="2056" viewBox="0 0 3943 2056" role="img" aria-labelledby="title" xml:lang="en">
+  <title id="title">Task Branching Policies</title>
+  <defs>
+    <marker id="branch-arrow" viewBox="0 0 28 32" markerWidth="28" markerHeight="32" refX="24" refY="16" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M3 3 24 16 3 29" fill="none" stroke="#444" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <path id="chevron" d="M7 6 61 34 7 62" fill="none" stroke-width="9" stroke-linejoin="round"/>
+    <marker id="sequence-arrow" viewBox="0 0 68 68" markerWidth="68" markerHeight="68" refX="61" refY="34" orient="auto" markerUnits="userSpaceOnUse">
+      <use href="#chevron" stroke="#173"/>
+    </marker>
+    <marker id="stop-arrow" viewBox="0 0 68 68" markerWidth="68" markerHeight="68" refX="61" refY="34" orient="auto" markerUnits="userSpaceOnUse">
+      <use href="#chevron" stroke="#c22"/>
+    </marker>
+    <style>
+      text { font-family: "Times New Roman", Times, serif; }
+      .heading { fill: #111; font-size: 70px; }
+      .card { fill: #fff; stroke: #ddd; stroke-width: 2; }
+      .branch path { fill: none; stroke: #444; stroke-width: 3.5; marker-end: url(#branch-arrow); }
+      .node text { fill: currentColor; text-anchor: middle; }
+      .neutral { color: #2266aa; }
+      .neutral circle { fill: #def; }
+      .active { color: #173; }
+      .active circle { fill: #e6f7e6; }
+      .blocked { color: #a33; }
+      .blocked circle { fill: #ffe6e6; }
+      .letter { font-size: 70px; }
+      .label { font-size: 36px; }
+      .compact { font-size: 28px; }
+      .cross-link { fill: none; stroke-width: 16; stroke-dasharray: 26 22; }
+      .sequence { stroke: #9c9; marker-end: url(#sequence-arrow); }
+      .stop { stroke: #e99; marker-end: url(#stop-arrow); }
+    </style>
+  </defs>
+
+  <rect width="3943" height="2056" fill="#fff"/>
+
+  <g aria-label="1 of N">
+    <text class="heading" x="120" y="140">1 of N</text>
+    <rect class="card" x="117" y="638" width="1149" height="357" rx="54"/>
+
+    <g class="branch">
+      <path d="M692 437V744"/>
+      <path d="M692 527q0 31-31 31h-359q-31 0-31 31v155"/>
+      <path d="M692 527q0 31 31 31h359q31 0 31 31v155"/>
+    </g>
+
+    <g class="node neutral" transform="translate(692 332)">
+      <circle r="105"/>
+      <text class="letter" y="-6">P</text>
+      <text class="label" y="51">Parent Node</text>
+    </g>
+    <g class="node active" transform="translate(271 849)">
+      <circle r="105"/>
+      <text class="letter" y="-6">A</text>
+      <text class="label" y="51">Started</text>
+    </g>
+    <g class="node blocked" transform="translate(692 849)">
+      <circle r="105"/>
+      <text class="letter" y="-6">B</text>
+      <text class="label" y="51">Cannot Start</text>
+    </g>
+    <g class="node blocked" transform="translate(1113 849)">
+      <circle r="105"/>
+      <text class="letter" y="-6">C</text>
+      <text class="label" y="51">Cannot Start</text>
+    </g>
+  </g>
+
+  <g aria-label="ALL">
+    <text class="heading" x="1435" y="146">ALL</text>
+    <rect class="card" x="1433" y="638" width="1133" height="357" rx="54"/>
+
+    <g class="branch">
+      <path d="M2000 443V746"/>
+      <path d="M2000 533q0 31-31 31h-351q-31 0-31 31v151"/>
+      <path d="M2000 533q0 31 31 31h351q31 0 31 31v151"/>
+    </g>
+
+    <g class="node neutral" transform="translate(2000 338)">
+      <circle r="105"/>
+      <text class="letter" y="-6">P</text>
+      <text class="label" y="51">Parent Node</text>
+    </g>
+    <g class="node active" transform="translate(1587 851)">
+      <circle r="105"/>
+      <text class="letter" y="-6">A</text>
+      <text class="label" y="51">Started</text>
+    </g>
+    <g class="node active" transform="translate(2000 851)">
+      <circle r="105"/>
+      <text class="letter" y="-6">B</text>
+      <text class="label" y="51">Started</text>
+    </g>
+    <g class="node active" transform="translate(2413 851)">
+      <circle r="105"/>
+      <text class="letter" y="-6">C</text>
+      <text class="label" y="51">Started</text>
+    </g>
+  </g>
+
+  <g aria-label="K of N">
+    <text class="heading" x="2738" y="142">K of N</text>
+    <rect class="card" x="2734" y="636" width="1150" height="357" rx="54"/>
+
+    <g class="branch">
+      <path d="M3310 435V742"/>
+      <path d="M3310 525q0 31-31 31h-358q-31 0-31 31v155"/>
+      <path d="M3310 525q0 31 31 31h358q31 0 31 31v155"/>
+    </g>
+
+    <g class="node neutral" transform="translate(3310 330)">
+      <circle r="105"/>
+      <text class="letter" y="-6">P</text>
+      <text class="label" y="51">Parent Node</text>
+    </g>
+    <g class="node active" transform="translate(2890 847)">
+      <circle r="105"/>
+      <text class="letter" y="-6">A</text>
+      <text class="label" y="51">Started</text>
+    </g>
+    <g class="node active" transform="translate(3310 847)">
+      <circle r="105"/>
+      <text class="letter" y="-6">B</text>
+      <text class="label" y="51">Started</text>
+    </g>
+    <g class="node blocked" transform="translate(3730 847)">
+      <circle r="105"/>
+      <text class="letter" y="-6">C</text>
+      <text class="label" y="51">Cannot Start</text>
+    </g>
+  </g>
+
+  <g aria-label="Run K Concurrently">
+    <text class="heading" x="120" y="1157">Run K Concurrently</text>
+    <rect class="card" x="114" y="1650" width="1147" height="357" rx="54"/>
+
+    <g class="branch">
+      <path d="M688 1450V1756"/>
+      <path d="M688 1540q0 31-31 31h-359q-31 0-31 31v154"/>
+      <path d="M688 1540q0 31 31 31h359q31 0 31 31v154"/>
+    </g>
+
+    <g class="node neutral" transform="translate(688 1345)">
+      <circle r="105"/>
+      <text class="letter" y="-6">P</text>
+      <text class="label" y="51">Parent Node</text>
+    </g>
+    <g class="node active" transform="translate(267 1861)">
+      <circle r="105"/>
+      <text class="letter" y="-6">A</text>
+      <text class="label" y="51">Started</text>
+    </g>
+    <g class="node active" transform="translate(688 1861)">
+      <circle r="105"/>
+      <text class="letter" y="-6">B</text>
+      <text class="label" y="51">Started</text>
+    </g>
+    <g class="node neutral" transform="translate(1109 1861)">
+      <circle r="105"/>
+      <text class="letter" y="-6">C</text>
+      <text class="label compact" y="51">Waiting for Slot</text>
+    </g>
+  </g>
+
+  <g aria-label="Schedule by Specified Order / Rules">
+    <text class="heading" x="1435" y="1157">Schedule by Specified Order / Rules</text>
+    <rect class="card" x="1430" y="1644" width="1136" height="357" rx="54"/>
+
+    <g class="branch">
+      <path d="M1997 1446V1750"/>
+      <path d="M1997 1536q0 31-31 31h-352q-31 0-31 31v152"/>
+      <path d="M1997 1536q0 31 31 31h352q31 0 31 31v152"/>
+    </g>
+    <path class="cross-link sequence" d="M1688 1855H1892"/>
+    <path class="cross-link sequence" d="M2102 1855H2306"/>
+
+    <g class="node neutral" transform="translate(1997 1341)">
+      <circle r="105"/>
+      <text class="letter" y="-6">P</text>
+      <text class="label" y="51">Parent Node</text>
+    </g>
+    <g class="node active" transform="translate(1583 1855)">
+      <circle r="105"/>
+      <text class="letter" y="-6">A</text>
+      <text class="label" y="51">Completed</text>
+    </g>
+    <g class="node active" transform="translate(1997 1855)">
+      <circle r="105"/>
+      <text class="letter" y="-6">B</text>
+      <text class="label" y="51">Started</text>
+    </g>
+    <g class="node neutral" transform="translate(2411 1855)">
+      <circle r="105"/>
+      <text class="letter" y="-6">C</text>
+      <text class="label" y="51">Pending Start</text>
+    </g>
+  </g>
+
+  <g aria-label="Stop Others After One Succeeds">
+    <text class="heading" x="2738" y="1157">Stop Others After One Succeeds</text>
+    <rect class="card" x="2734" y="1646" width="1149" height="357" rx="54"/>
+
+    <g class="branch">
+      <path d="M3306 1447V1753"/>
+      <path d="M3306 1537q0 31-31 31h-357q-31 0-31 31v154"/>
+      <path d="M3306 1537q0 31 31 31h357q31 0 31 31v154"/>
+    </g>
+    <path class="cross-link stop" d="M2992 1858H3201"/>
+    <path class="cross-link stop" d="M3411 1858H3620"/>
+
+    <g class="node neutral" transform="translate(3306 1342)">
+      <circle r="105"/>
+      <text class="letter" y="-6">P</text>
+      <text class="label" y="51">Parent Node</text>
+    </g>
+    <g class="node active" transform="translate(2887 1858)">
+      <circle r="105"/>
+      <text class="letter" y="-6">A</text>
+      <text class="label" y="51">Completed</text>
+    </g>
+    <g class="node blocked" transform="translate(3306 1858)">
+      <circle r="105"/>
+      <text class="letter" y="-6">B</text>
+      <text class="label" y="51">Cannot Start</text>
+    </g>
+    <g class="node blocked" transform="translate(3725 1858)">
+      <circle r="105"/>
+      <text class="letter" y="-6">C</text>
+      <text class="label" y="51">Cannot Start</text>
+    </g>
+  </g>
+</svg>

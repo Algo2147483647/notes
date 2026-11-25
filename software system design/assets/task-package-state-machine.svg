@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2660" height="645" viewBox="60 225 2660 645" role="img" aria-labelledby="title" xml:lang="en">
+  <title id="title">Task Package State Machine</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 24 24" markerWidth="24" markerHeight="24" refX="21" refY="12" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M3 3 21 12 3 21" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      text { font-family: "Times New Roman", Times, serif; }
+      .state { fill: #fff0bf; }
+      .state-label { fill: #653e00; font-size: 39px; text-anchor: middle; }
+      .label { fill: #444; font-size: 28px; }
+      .center { text-anchor: middle; }
+      .line { fill: none; stroke: #555; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow); }
+      .dashed { stroke-dasharray: 13 12; }
+      .runtime { fill: none; stroke: #aaa; stroke-width: 2; stroke-dasharray: 14 14; }
+      .runtime-label { fill: #444; font-size: 42px; }
+    </style>
+  </defs>
+
+  <rect x="60" y="225" width="2660" height="645" fill="#fff"/>
+
+  <g aria-label="Task package states and transitions">
+    <rect class="runtime" x="756" y="285" width="1893" height="524" rx="44"/>
+    <text class="runtime-label" x="811" y="353">Runtime States</text>
+
+    <g transform="translate(134 443)">
+      <rect class="state" width="353" height="120" rx="24"/>
+      <text class="state-label" x="176.5" y="75">Definition</text>
+    </g>
+    <g transform="translate(877 443)">
+      <rect class="state" width="354" height="120" rx="24"/>
+      <text class="state-label" x="177" y="75">Pending Start</text>
+    </g>
+    <g transform="translate(1538 443)">
+      <rect class="state" width="355" height="120" rx="24"/>
+      <text class="state-label" x="177.5" y="75">In Progress</text>
+    </g>
+    <g transform="translate(2191 443)">
+      <rect class="state" width="350" height="120" rx="24"/>
+      <text class="state-label" x="175" y="75">Ended</text>
+    </g>
+
+    <path class="line" d="M487 503H877"/>
+    <path class="line" d="M1231 503H1538"/>
+    <path class="line" d="M1893 503H2191"/>
+    <path class="line dashed" d="M1054 563v98q0 24 24 24h1264q24 0 24-24v-98"/>
+
+    <text class="label center" x="663" y="477">Instantiate</text>
+    <text class="label center" x="1384" y="474">Start</text>
+    <text class="label center" x="2041" y="472">End</text>
+    <text class="label center" x="1715" y="664">Terminate Before Start</text>
+  </g>
+</svg>

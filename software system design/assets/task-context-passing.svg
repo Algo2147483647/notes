@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="4031" height="1633" viewBox="0 0 4031 1633" role="img" aria-labelledby="title" xml:lang="en">
+  <title id="title">Topological Context Passing, Tasks Share Memory, and Messages Trigger Tasks</title>
+  <defs>
+    <path id="arrowhead" d="M3 3 24 16 3 29" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <marker id="dark-arrow" viewBox="0 0 28 32" markerWidth="28" markerHeight="32" refX="24" refY="16" orient="auto" markerUnits="userSpaceOnUse">
+      <use href="#arrowhead" stroke="#222"/>
+    </marker>
+    <marker id="blue-arrow" viewBox="0 0 28 32" markerWidth="28" markerHeight="32" refX="24" refY="16" orient="auto" markerUnits="userSpaceOnUse">
+      <use href="#arrowhead" stroke="#2266aa"/>
+    </marker>
+    <marker id="red-arrow" viewBox="0 0 28 32" markerWidth="28" markerHeight="32" refX="24" refY="16" orient="auto" markerUnits="userSpaceOnUse">
+      <use href="#arrowhead" stroke="#aa3333"/>
+    </marker>
+    <rect id="queue-slot" width="105" height="148" rx="15"/>
+    <style>
+      text { font-family: "Times New Roman", Times, serif; fill: #111; }
+      .heading { font-size: 78px; }
+      .task { fill: #def; }
+      .task-letter, .task-definition { fill: #2266aa; }
+      .task-letter { font-size: 78px; }
+      .task-definition { font-size: 42px; }
+      .center { text-anchor: middle; }
+      .label { font-size: 44px; }
+      .large { font-size: 60px; }
+      .muted { fill: #444; }
+      .red-text { fill: #aa3333; }
+      .edge, .mapping, .event, .rail, .base { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .edge { stroke: #222; stroke-width: 5; marker-end: url(#dark-arrow); }
+      .mapping { stroke: #2266aa; stroke-width: 5; }
+      .input { marker-end: url(#blue-arrow); }
+      .event { stroke: #aa3333; stroke-width: 4; stroke-dasharray: 17 18; marker-end: url(#red-arrow); }
+      .rail, .base { stroke: #aa3333; stroke-width: 3; }
+    </style>
+  </defs>
+
+  <rect width="4031" height="1633" fill="#fff"/>
+
+  <g aria-label="Topological Context Passing">
+    <text class="heading muted" x="113" y="169">Topological Context Passing</text>
+
+    <circle class="task" cx="677" cy="502" r="103"/>
+    <rect x="431" y="812" width="502" height="250" rx="37" fill="#eee"/>
+    <circle class="task" cx="686" cy="1359" r="103"/>
+
+    <path class="edge" d="M575 502H351q-40 0-40 40l8 777q0 41 40 41h224"/>
+    <path class="mapping" d="m678 606 3 170"/>
+    <path class="mapping input" d="M684 1077v179"/>
+
+    <text class="task-letter center" x="677" y="529">A</text>
+    <text class="label muted" x="833" y="520">Predecessor</text>
+    <text class="label muted" x="744" y="710">output</text>
+    <text class="muted" x="280" y="944" text-anchor="end" font-size="32">Topology Edge</text>
+    <text class="large center muted" x="682" y="962">Context Mapping</text>
+    <text class="label muted" x="748" y="1187">input</text>
+    <text class="task-letter center" x="686" y="1385">B</text>
+    <text class="label muted" x="840" y="1377">Successor</text>
+  </g>
+
+  <g aria-label="Tasks Share Memory">
+    <text class="heading" x="1461" y="167">Tasks Share Memory</text>
+
+    <circle class="task" cx="2018" cy="504" r="102"/>
+    <path d="M1705 877h632v120a316 59 0 0 1-632 0Z" fill="#ffe6e6"/>
+    <ellipse cx="2021" cy="877" rx="316" ry="58" fill="#fcc"/>
+    <path class="base" d="M1705 997a316 59 0 0 0 632 0"/>
+    <circle class="task" cx="1676" cy="1354" r="102"/>
+    <circle class="task" cx="2372" cy="1354" r="102"/>
+
+    <path class="event" d="m2018 606 2 189"/>
+    <path class="event" d="M1865 1059v59q0 36-36 36h-117q-36 0-36 36v63"/>
+    <path class="event" d="M2180 1059v59q0 36 36 36h120q36 0 36 36v62"/>
+
+    <text class="task-letter center" x="2018" y="531">A</text>
+    <text class="label red-text" x="2070" y="713">Write, Generate Artifacts</text>
+    <text class="large center red-text" x="2021" y="985">Business Features</text>
+    <text class="label center red-text" x="1755" y="1125">Read</text>
+    <text class="label center red-text" x="2290" y="1125">Read</text>
+    <text class="task-letter center" x="1676" y="1380">B</text>
+    <text class="task-letter center" x="2372" y="1380">C</text>
+  </g>
+
+  <g aria-label="Messages Trigger Tasks">
+    <text class="heading" x="2804" y="161">Messages Trigger Tasks</text>
+
+    <circle class="task" cx="3361" cy="496" r="103"/>
+    <path class="rail" d="m3052 816 620-3M3052 1032l620-2"/>
+    <g fill="#ffe6e6">
+      <use href="#queue-slot" x="3077" y="850"/>
+      <use href="#queue-slot" x="3226" y="849"/>
+      <use href="#queue-slot" x="3375" y="849"/>
+      <use href="#queue-slot" x="3523" y="848"/>
+    </g>
+    <circle class="task" cx="3008" cy="1353" r="103"/>
+    <rect class="task" x="3576" y="1262" width="285" height="185" rx="30"/>
+
+    <path class="event" d="M3361 598v211"/>
+    <path class="event" d="M3233 1032v85q0 36-36 36h-153q-36 0-36 36v62"/>
+    <path class="event" d="M3492 1031v86q0 36 36 36h154q36 0 36 36v63"/>
+
+    <text class="task-letter center" x="3361" y="523">A</text>
+    <text class="label muted" x="3518" y="514">Event Source</text>
+    <text class="label red-text" x="3460" y="726">Send Event</text>
+    <text class="large center red-text" x="3360" y="947">Message Queue</text>
+    <text class="label center red-text" x="3081" y="1116">Trigger</text>
+    <text class="label center red-text" x="3643" y="1116">Trigger</text>
+    <text class="task-letter center" x="3008" y="1379">B</text>
+    <text class="task-definition center" x="3718" y="1373">Task Definition</text>
+    <text class="label center red-text" x="3008" y="1536">Wake / Process</text>
+    <text class="label center red-text" x="3718" y="1537">Create Instance</text>
+  </g>
+</svg>

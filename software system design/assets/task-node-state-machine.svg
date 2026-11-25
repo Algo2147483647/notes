@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2660" height="1003" viewBox="60 1067 2660 1003" role="img" aria-labelledby="title" xml:lang="en">
+  <title id="title">Task Node State Machine</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 24 24" markerWidth="24" markerHeight="24" refX="21" refY="12" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M3 3 21 12 3 21" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      text { font-family: "Times New Roman", Times, serif; }
+      .state { fill: #fff0bf; }
+      .state-label { fill: #653e00; font-size: 39px; text-anchor: middle; }
+      .state-label.compact { font-size: 34px; }
+      .label { fill: #444; font-size: 28px; }
+      .center { text-anchor: middle; }
+      .line { fill: none; stroke: #555; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow); }
+      .dashed { stroke-dasharray: 13 12; }
+    </style>
+  </defs>
+
+  <rect x="60" y="1067" width="2660" height="1003" fill="#fff"/>
+
+  <g aria-label="Task node states and transitions">
+    <g transform="translate(135 1140)">
+      <rect class="state" width="354" height="120" rx="24"/>
+      <text class="state-label" x="177" y="75">Awaiting Activation</text>
+    </g>
+    <g transform="translate(815 1140)">
+      <rect class="state" width="350" height="120" rx="24"/>
+      <text class="state-label" x="175" y="75">Awaiting Trigger</text>
+    </g>
+    <g transform="translate(1488 1140)">
+      <rect class="state" width="356" height="120" rx="24"/>
+      <text class="state-label" x="178" y="75">Running</text>
+    </g>
+    <g transform="translate(2188 1140)">
+      <rect class="state" width="354" height="120" rx="24"/>
+      <text class="state-label" x="177" y="75">Completed</text>
+    </g>
+    <g transform="translate(1396 1529)">
+      <rect class="state" width="541" height="120" rx="24"/>
+      <text class="state-label" x="270.5" y="75">Failed, Awaiting Retry</text>
+    </g>
+    <g transform="translate(1489 1882)">
+      <rect class="state" width="355" height="120" rx="24"/>
+      <text class="state-label compact" x="177.5" y="73">Abnormal Termination</text>
+    </g>
+
+    <path class="line" d="M489 1200H815"/>
+    <path class="line" d="M1165 1200H1488"/>
+    <path class="line" d="M1844 1200H2188"/>
+    <path class="line dashed" d="M1646 1260V1529"/>
+    <path class="line" d="M1684 1529V1260"/>
+    <path class="line dashed" d="M1666 1649V1882"/>
+    <path class="line dashed" d="M990 1260v656q0 26 26 26h473"/>
+    <path class="line dashed" d="M1844 1232h208q26 0 26 26v658q0 26-26 26h-208"/>
+
+    <text class="label center" x="652" y="1170">Start Task Node</text>
+    <text class="label center" x="652" y="1254">Eligible for Triggering</text>
+    <text class="label center" x="1327" y="1168">Trigger Condition Met</text>
+    <text class="label center" x="2016" y="1164">Actions Completed</text>
+    <text class="label" x="1604" y="1404" text-anchor="end">Execution Failed</text>
+    <text class="label" x="1732" y="1404">Retry Triggered</text>
+    <text class="label" x="1714" y="1778">Retries Stopped</text>
+    <text class="label center" x="1222" y="1914">Cancel / Terminate</text>
+    <text class="label" x="2139" y="1782">Unrecoverable Failure</text>
+  </g>
+</svg>

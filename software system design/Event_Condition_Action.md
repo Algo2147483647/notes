@@ -6,9 +6,9 @@
 
 > **WHEN**  <*event*>  **IF**  <*condition*>  **THEN**  <*action*>.
 
-The **event-driven model** is an architectural paradigm in which events determine the execution flow of a system. In this model, the system’s behavior revolves around event generation, detection, dispatch, and handling, thereby enabling a highly decoupled, asynchronous, and reactive system design.
+ECA is a **event-driven** architectural paradigm in which events determine the execution flow of a system. The system’s behavior revolves around event triggering, determination, and handling.
 
-- **Events**: A detectable occurrence, which carries the attributes and type of the event, and defines specific events or signals that can cause a change in the system state or require a system response. It is the starting point of the entire model’s execution and may originate from external inputs (such as user clicks), internal state changes (such as data updates, scheduled task triggered).
+- **Events**: Detectable occurrences that carry relevant attributes describing their context and characteristics. Specific signals extracted from these occurrences serve as triggers that initiate the execution of the model. Examples include external inputs (e.g., user clicks), internal state changes (e.g., data updates), or time-based triggers (e.g., scheduled tasks).
 - **Conditions**: After the event is triggered, conditions consist of the logical rules that determine whether and how subsequent actions are executed.
 - **Actions**: Actions are the concrete operations executed when an event is triggered and its conditions are satisfied, including updating data, invoking services, granting rewards, sending messages, or triggering new events.
 
@@ -18,15 +18,15 @@ The **event-driven model** is an architectural paradigm in which events determin
 
 #### Attributes
 
-**Attributes** are the specific data fields attached to a business event. They provide contextual business information—such as user, order, or payment details—that can be used for business logic and processing, rather than serving merely as a notification.
+**Attributes** are the specific data fields attached to a business event. They provide contextual business information that can be used for processing.
 
-**Which Events can be combined with which Conditions and Actions?** Each Event provides a set of attributes carrying specific business information (e.g., user ID, order amount). Conditions and Actions declare the attributes they require for execution (e.g., “grant reward” requires user ID). The system automatically determines whether a combination is valid and executable by checking whether the attributes provided by the Event satisfy the requirements of the Condition and Action.
+**Which Events can be combined with which Conditions and Actions?** Conditions and Actions declare the attributes they require for its execution (e.g., “grant reward” requires user ID). The system validates the compatibility by determining whether the attributes provided by the Event satisfy the requirements of the Condition and Action.
 
-**Consistency issues in data dependencies between Events and Conditions**. An Event may indicate the occurrence of a “local event” within the system, whereas Condition evaluation requires the “global state to be ready.” At the moment the Event is triggered, other related data required for subsequent condition evaluation may not yet have been generated, persisted, or may still be in an inconsistent intermediate state. Because different system components process data at different speeds, a time gap emerges between cross-component state consistency and the requirements of business logic. Therefore, the system should identify the true business moment at which “all required data are ready and consistent,” and to use that moment as a reliable triggering signal.
+**Consistency issues in data dependencies between Events and Conditions**. An Event may indicate the occurrence of a “local event” within the system, whereas Condition evaluation requires the “global state to be ready.” When an Event is triggered, the data required for subsequent Condition evaluation may not yet be available or consistent due to asynchronous processing across system components. Therefore, the system should identify the reliable triggering signs at which “all required data are ready and consistent”.
 
 #### Runtime Events
 
-**Runtime Events** are special events that represent important internal runtime state changes within an ECA Graph, such as node completion, dependency satisfaction, branch selection, or asynchronous callbacks. By representing these important transitions as explicit events, the runtime can handle graph progression using the same event-driven mechanism as external business events, rather than embedding such behavior as implicit scheduler logic.
+**Runtime Events** are special events that represent important internal runtime state changes within an ECA. By representing these important transitions as explicit events, the runtime can handle graph progression using the same event-driven mechanism as external business events, rather than embedding such behavior as implicit scheduler logic.
 
 | Special Event           | Triggered When                                               | Typical Use Case                                             |
 | ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |

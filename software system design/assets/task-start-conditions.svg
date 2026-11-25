@@ -1,0 +1,311 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2902" height="2586" viewBox="0 0 2902 2586" role="img" aria-labelledby="title" xml:lang="en">
+  <title id="title">Task Start Conditions</title>
+  <defs>
+    <path id="tip" d="M3 3 22 14 3 25" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <marker id="arrowhead" viewBox="0 0 26 28" markerWidth="26" markerHeight="28" refX="22" refY="14" orient="auto" markerUnits="userSpaceOnUse">
+      <use href="#tip" stroke="#444"/>
+    </marker>
+    <marker id="accent-arrowhead" viewBox="0 0 26 28" markerWidth="26" markerHeight="28" refX="22" refY="14" orient="auto" markerUnits="userSpaceOnUse">
+      <use href="#tip" stroke="#a33"/>
+    </marker>
+    <style>
+      text { font-family: "Times New Roman", Times, serif; fill: #111; }
+      .heading { font-size: 52px; }
+      .node text { fill: currentColor; text-anchor: middle; }
+      .blue { color: #246; }
+      .blue circle { fill: #def; }
+      .complete { color: #173; }
+      .complete circle { fill: #e6f7e6; }
+      .failed { color: #a33; }
+      .failed circle, .graph { fill: #ffe6e6; }
+      .gray { color: #444; }
+      .gray circle { fill: #eee; }
+      .letter { font-size: 50px; }
+      .status { font-size: 27px; }
+      .compact { font-size: 24px; }
+      .line, .highlight { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .line { stroke: #444; stroke-width: 3; }
+      .dashed { stroke-dasharray: 10 12; }
+      .arrow { marker-end: url(#arrowhead); }
+      .highlight { stroke: #e99; stroke-width: 11; }
+      .accent-arrow { stroke: #a33; marker-end: url(#accent-arrowhead); }
+      .condition path { fill: #fff0bf; }
+      .condition text { fill: #653e00; text-anchor: middle; font-size: 38px; }
+      .condition .medium { font-size: 33px; }
+      .condition .small { font-size: 30px; }
+      .condition .compact { font-size: 26px; }
+      .weight { font-size: 28px; }
+      .graph-label { font-size: 42px; text-anchor: middle; }
+      .action { font-size: 33px; }
+    </style>
+  </defs>
+
+  <rect width="2902" height="2586" fill="#fff"/>
+
+  <g aria-label="All Succeed">
+    <text class="heading" x="78" y="119">All Succeed</text>
+
+    <path class="line" d="M198 375v34q0 24 24 24h244q24 0 24 24"/>
+    <path class="line" d="M490 375V457"/>
+    <path class="line" d="M782 375v34q0 24-24 24h-244q-24 0-24 24"/>
+    <path class="line arrow" d="M490 457V476"/>
+    <path class="line arrow" d="M490 598V667"/>
+
+    <g class="node complete" transform="translate(198 298)">
+      <circle r="77"/>
+      <text class="letter" y="-5">A</text>
+      <text class="status" y="38">Completed</text>
+    </g>
+    <g class="node complete" transform="translate(490 298)">
+      <circle r="77"/>
+      <text class="letter" y="-5">B</text>
+      <text class="status" y="38">Completed</text>
+    </g>
+    <g class="node complete" transform="translate(782 298)">
+      <circle r="77"/>
+      <text class="letter" y="-5">C</text>
+      <text class="status" y="38">Completed</text>
+    </g>
+    <g class="condition" transform="translate(490 537)">
+      <path d="M0-61 141 0 0 61-141 0Z"/>
+      <text y="12">ALL</text>
+    </g>
+    <g class="node blue" transform="translate(490 744)">
+      <circle r="77"/>
+      <text class="letter" y="-5">D</text>
+      <text class="status" y="38">Start Node</text>
+    </g>
+  </g>
+
+  <g aria-label="Any Succeeds">
+    <text class="heading" x="1026" y="119">Any Succeeds</text>
+
+    <path class="line" d="M1145 375v34q0 24 24 24h241q24 0 24 24"/>
+    <path class="line dashed" d="M1434 375V457"/>
+    <path class="line dashed" d="M1723 375v34q0 24-24 24h-241q-24 0-24 24"/>
+    <path class="line arrow" d="M1434 457V476"/>
+    <path class="line arrow" d="M1434 598V667"/>
+
+    <g class="node complete" transform="translate(1145 298)">
+      <circle r="77"/>
+      <text class="letter" y="-5">A</text>
+      <text class="status" y="38">Completed</text>
+    </g>
+    <g class="node blue" transform="translate(1434 298)">
+      <circle r="77"/>
+      <text class="letter" y="-5">B</text>
+      <text class="status" y="38">Running</text>
+    </g>
+    <g class="node blue" transform="translate(1723 298)">
+      <circle r="77"/>
+      <text class="letter" y="-5">C</text>
+      <text class="status" y="38">Running</text>
+    </g>
+    <g class="condition" transform="translate(1434 537)">
+      <path d="M0-61 141 0 0 61-141 0Z"/>
+      <text y="12">ANY</text>
+    </g>
+    <g class="node blue" transform="translate(1434 744)">
+      <circle r="77"/>
+      <text class="letter" y="-5">D</text>
+      <text class="status" y="38">Start Node</text>
+    </g>
+  </g>
+
+  <g aria-label="At Least K Succeed">
+    <text class="heading" x="1968" y="111">At Least K Succeed</text>
+
+    <path class="line" d="M2085 366v33q0 24 24 24h244q24 0 24 24"/>
+    <path class="line" d="M2377 366V447"/>
+    <path class="line dashed" d="M2669 366v33q0 24-24 24h-244q-24 0-24 24"/>
+    <path class="line arrow" d="M2377 447V466"/>
+    <path class="line arrow" d="M2377 588V658"/>
+
+    <g class="node complete" transform="translate(2085 289)">
+      <circle r="77"/>
+      <text class="letter" y="-5">A</text>
+      <text class="status" y="38">Completed</text>
+    </g>
+    <g class="node complete" transform="translate(2377 289)">
+      <circle r="77"/>
+      <text class="letter" y="-5">B</text>
+      <text class="status" y="38">Completed</text>
+    </g>
+    <g class="node blue" transform="translate(2669 289)">
+      <circle r="77"/>
+      <text class="letter" y="-5">C</text>
+      <text class="status" y="38">Running</text>
+    </g>
+    <g class="condition" transform="translate(2377 527)">
+      <path d="M0-61 141 0 0 61-141 0Z"/>
+      <text y="12">&#8805; K</text>
+    </g>
+    <g class="node blue" transform="translate(2377 735)">
+      <circle r="77"/>
+      <text class="letter" y="-5">D</text>
+      <text class="status" y="38">Start Node</text>
+    </g>
+  </g>
+
+  <g aria-label="Weight Threshold Met">
+    <text class="heading" x="82" y="967">Weight Threshold Met</text>
+
+    <path class="line" d="M203 1222v30q0 24 24 24h244q24 0 24 24"/>
+    <path class="line" d="M495 1222V1300"/>
+    <path class="line dashed" d="M787 1222v30q0 24-24 24h-244q-24 0-24 24"/>
+    <path class="line arrow" d="M495 1300V1319"/>
+    <path class="line arrow" d="M495 1441V1509"/>
+    <text class="weight" x="235" y="1252">2</text>
+    <text class="weight" x="527" y="1252">1</text>
+    <text class="weight" x="819" y="1252">1</text>
+
+    <g class="node complete" transform="translate(203 1145)">
+      <circle r="77"/>
+      <text class="letter" y="-5">A</text>
+      <text class="status" y="38">Completed</text>
+    </g>
+    <g class="node complete" transform="translate(495 1145)">
+      <circle r="77"/>
+      <text class="letter" y="-5">B</text>
+      <text class="status" y="38">Completed</text>
+    </g>
+    <g class="node blue" transform="translate(787 1145)">
+      <circle r="77"/>
+      <text class="letter" y="-5">C</text>
+      <text class="status" y="38">Running</text>
+    </g>
+    <g class="condition" transform="translate(495 1380)">
+      <path d="M0-61 141 0 0 61-141 0Z"/>
+      <text y="12">2+1 &#8805; 3</text>
+    </g>
+    <g class="node blue" transform="translate(495 1586)">
+      <circle r="77"/>
+      <text class="letter" y="-5">D</text>
+      <text class="status" y="38">Start Node</text>
+    </g>
+  </g>
+
+  <g aria-label="All Ended">
+    <text class="heading" x="1030" y="967">All Ended</text>
+
+    <path class="line" d="M1148 1218v30q0 24 24 24h238q24 0 24 24"/>
+    <path class="line" d="M1434 1218V1296"/>
+    <path class="line" d="M1720 1218v30q0 24-24 24h-238q-24 0-24 24"/>
+    <path class="line arrow" d="M1434 1296V1315"/>
+    <path class="line arrow" d="M1434 1437V1503"/>
+
+    <g class="node complete" transform="translate(1148 1141)">
+      <circle r="77"/>
+      <text class="letter" y="-5">A</text>
+      <text class="status" y="38">Completed</text>
+    </g>
+    <g class="node failed" transform="translate(1434 1141)">
+      <circle r="77"/>
+      <text class="letter" y="-5">B</text>
+      <text class="status" y="38">Failed</text>
+    </g>
+    <g class="node gray" transform="translate(1720 1141)">
+      <circle r="77"/>
+      <text class="letter" y="-5">C</text>
+      <text class="status" y="38">Skipped</text>
+    </g>
+    <g class="condition" transform="translate(1434 1376)">
+      <path d="M0-61 141 0 0 61-141 0Z"/>
+      <text class="small" y="12">ALL ENDED</text>
+    </g>
+    <g class="node blue" transform="translate(1434 1580)">
+      <circle r="77"/>
+      <text class="letter" y="-5">D</text>
+      <text class="status" y="38">Start Node</text>
+    </g>
+  </g>
+
+  <g aria-label="Specified Predecessor States">
+    <text class="heading" x="1966" y="961">Specified Predecessor States</text>
+
+    <path class="line" d="M2082 1214v31q0 24 24 24h244q24 0 24 24"/>
+    <path class="line" d="M2374 1214V1293"/>
+    <path class="line" d="M2666 1214v31q0 24-24 24h-244q-24 0-24 24"/>
+    <path class="line arrow" d="M2374 1293V1312"/>
+    <path class="line arrow" d="M2374 1434V1502"/>
+
+    <g class="node complete" transform="translate(2082 1137)">
+      <circle r="77"/>
+      <text class="letter" y="-5">A</text>
+      <text class="status" y="38">Completed</text>
+    </g>
+    <g class="node failed" transform="translate(2374 1137)">
+      <circle r="77"/>
+      <text class="letter" y="-5">B</text>
+      <text class="status" y="38">Failed</text>
+    </g>
+    <g class="node gray" transform="translate(2666 1137)">
+      <circle r="77"/>
+      <text class="letter" y="-5">C</text>
+      <text class="status" y="38">Skipped</text>
+    </g>
+    <g class="condition" transform="translate(2374 1373)">
+      <path d="M0-61 141 0 0 61-141 0Z"/>
+      <text y="12">State Match</text>
+    </g>
+    <g class="node blue" transform="translate(2374 1579)">
+      <circle r="77"/>
+      <text class="letter" y="-5">D</text>
+      <text class="status" y="38">Start Node</text>
+    </g>
+  </g>
+
+  <g aria-label="Entry Node">
+    <text class="heading" x="82" y="1813">Entry Node</text>
+
+    <rect class="graph" x="296" y="1933" width="398" height="132" rx="25"/>
+    <text class="graph-label" x="495" y="2012">Task Graph</text>
+    <path class="line arrow" d="M494 2065V2171"/>
+    <text class="action" x="553" y="2139">Start</text>
+    <path class="line arrow" d="M494 2293V2353"/>
+    <g class="condition" transform="translate(494 2232)">
+      <path d="M0-61 141 0 0 61-141 0Z"/>
+      <text class="compact" y="12">Topological Order = 0</text>
+    </g>
+    <g class="node blue" transform="translate(494 2430)">
+      <circle r="77"/>
+      <text class="letter" y="-5">D</text>
+      <text class="status" y="38">Start Node</text>
+    </g>
+  </g>
+
+  <g aria-label="Specified Branches Complete">
+    <text class="heading" x="1030" y="1803">Specified Branches Complete</text>
+
+    <path class="line" d="M1436 2056V2138"/>
+    <path class="highlight" d="M1148 2056v34q0 24 24 24h240q24 0 24 24M1436 2138V2157"/>
+    <path class="highlight" d="M1724 2056v34q0 24-24 24h-240q-24 0-24 24"/>
+    <path class="line accent-arrow" d="M1436 2138V2157"/>
+    <path class="line arrow" d="M1436 2279V2348"/>
+
+    <g class="node complete" transform="translate(1148 1979)">
+      <circle r="77"/>
+      <text class="letter" y="-5">A</text>
+      <text class="status" y="38">Completed</text>
+    </g>
+    <g class="node gray" transform="translate(1436 1979)">
+      <circle r="77"/>
+      <text class="letter" y="-5">B</text>
+      <text class="status compact" y="38">Not Selected</text>
+    </g>
+    <g class="node complete" transform="translate(1724 1979)">
+      <circle r="77"/>
+      <text class="letter" y="-5">C</text>
+      <text class="status" y="38">Completed</text>
+    </g>
+    <g class="condition" transform="translate(1436 2218)">
+      <path d="M0-61 141 0 0 61-141 0Z"/>
+      <text class="medium" y="12">Specified Edges</text>
+    </g>
+    <g class="node blue" transform="translate(1436 2425)">
+      <circle r="77"/>
+      <text class="letter" y="-5">D</text>
+      <text class="status" y="38">Start Node</text>
+    </g>
+  </g>
+</svg>

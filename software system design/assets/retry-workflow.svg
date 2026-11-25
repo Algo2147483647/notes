@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3567" height="2349" viewBox="0 0 3567 2349" role="img" aria-labelledby="title" xml:lang="en">
+  <title id="title">Real-Time Retry and Asynchronous Retry</title>
+  <defs>
+    <filter id="panel-shadow" x="-3%" y="-8%" width="106%" height="118%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#000" flood-opacity=".12"/>
+    </filter>
+    <filter id="step-shadow" x="-16%" y="-32%" width="132%" height="170%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="8" stdDeviation="13" flood-color="#000" flood-opacity=".16"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 25 25" markerWidth="25" markerHeight="25" refX="22" refY="12.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M3 3l19 9.5L3 22" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <g id="envelope">
+      <rect width="88" height="76" rx="11"/>
+      <path d="m8 12 36 26 36-26"/>
+    </g>
+    <style>
+      text { fill: #111; font-family: "Times New Roman", Times, serif; text-anchor: middle; }
+      .heading { font-size: 56px; }
+      .label { font-size: 44px; }
+      .compact { font-size: 40px; }
+      .trigger { font-size: 32px; }
+      .condition, .branch { font-size: 36px; }
+      .panel { fill: #fff; filter: url(#panel-shadow); }
+      .step { fill: #fff; filter: url(#step-shadow); }
+      .failure { fill: #ffe6e6; }
+      .success { fill: #e6f7e6; }
+      .line, .queue { fill: none; stroke: #222; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .line > path { marker-end: url(#arrow); }
+      .line > .return { marker-end: none; stroke-dasharray: 13 13; }
+    </style>
+  </defs>
+
+  <rect width="3567" height="2349" fill="#fff"/>
+  <rect class="panel" x="60" y="40" width="3465" height="942" rx="43"/>
+  <rect class="panel" x="60" y="1054" width="3465" height="1237" rx="43"/>
+
+  <g aria-label="Real-Time Retry">
+    <text class="heading" x="1792" y="150">Real-Time Retry</text>
+
+    <g>
+      <rect class="step failure" x="139" y="388" width="379" height="168" rx="31"/>
+      <path class="step" d="M864 473l221-115 219 115-219 115Z"/>
+      <rect class="step" x="1835" y="388" width="372" height="168" rx="31"/>
+      <rect class="step" x="2500" y="384" width="380" height="170" rx="31"/>
+      <rect class="step success" x="3092" y="380" width="379" height="168" rx="31"/>
+      <rect class="step" x="866" y="745" width="440" height="167" rx="31"/>
+    </g>
+
+    <g class="line">
+      <path d="M518 472H864"/>
+      <path d="M1304 474H1835"/>
+      <path d="M2207 473l293-3"/>
+      <path d="M2880 467l212-2"/>
+      <path d="M2691 385V270q0-31-31-31L360 242q-32 0-32 32v114"/>
+      <path d="M1085 588v157"/>
+      <path d="M1086 912v105q0 31-31 31H360q-31 0-31 31v228"/>
+    </g>
+
+    <text class="label" x="328" y="489">Execution Failed</text>
+    <text class="condition" x="1085" y="461">Retry Count<tspan x="1085" dy="52">&lt; Maximum Count?</tspan></text>
+    <text class="branch" x="1555" y="443">Yes</text>
+    <text class="branch" x="1138" y="681">No</text>
+    <text class="label" x="2021" y="488">Wait Briefly</text>
+    <text class="label" x="2690" y="485">Execute Action</text>
+    <text class="branch" x="2759" y="322">Failure</text>
+    <text class="label compact" x="3281" y="481">Execution Succeeded</text>
+    <text class="label" x="1086" y="845">End Real-Time Retry</text>
+  </g>
+
+  <g aria-label="Asynchronous Retry">
+    <text class="heading" x="1792" y="1180">Asynchronous Retry</text>
+
+    <g>
+      <rect class="step failure" x="139" y="1307" width="380" height="167" rx="31"/>
+      <rect class="step" x="697" y="1306" width="443" height="166" rx="31"/>
+      <rect class="step" x="1957" y="1302" width="374" height="167" rx="31"/>
+      <rect class="step" x="2500" y="1302" width="380" height="166" rx="31"/>
+      <rect class="step success" x="3091" y="1299" width="380" height="169" rx="31"/>
+      <path class="step" d="M2469 1759l220-114 222 114-222 115Z"/>
+      <rect class="step" x="2500" y="1949" width="380" height="169" rx="31"/>
+      <rect class="step" x="1918" y="1949" width="375" height="169" rx="31"/>
+      <rect class="step" x="1397" y="1949" width="375" height="169" rx="31"/>
+    </g>
+
+    <g class="line">
+      <path d="M519 1390l178-1"/>
+      <path d="M1140 1388l281-2"/>
+      <path d="M1795 1385h162"/>
+      <path d="M2331 1385l169-1"/>
+      <path d="M2880 1385h211"/>
+      <path d="M2689 1468v177"/>
+      <path d="M2689 1874v75"/>
+      <path d="M2500 2032h-207"/>
+      <path d="M1918 2032h-146"/>
+      <path class="return" d="M2469 1759H1305q-30 0-30-30"/>
+      <path class="return" d="M1397 2032h-92q-30 0-30-30v-585q0-30 30-30"/>
+    </g>
+
+    <g class="queue">
+      <path d="M1421 1328h374M1421 1444h374"/>
+      <use href="#envelope" x="1445" y="1348"/>
+      <use href="#envelope" x="1557" y="1348"/>
+      <use href="#envelope" x="1669" y="1348"/>
+    </g>
+
+    <text class="label" x="329" y="1406">Execution Failed</text>
+    <text class="label compact" x="918" y="1405">Save Execution Context</text>
+    <text class="label" x="1608" y="1284">Retry Queue</text>
+    <text class="label trigger" x="2144" y="1397">Delay / Scheduled Trigger</text>
+    <text class="label" x="2690" y="1401">Execute Action</text>
+    <text class="branch" x="2983" y="1354">Success</text>
+    <text class="label compact" x="3281" y="1399">Execution Succeeded</text>
+    <text class="branch" x="2751" y="1564">Failure</text>
+    <text class="condition" x="2689" y="1750"><tspan font-size="32">Asynchronous Retry Count</tspan><tspan x="2689" dy="48">&lt; Maximum Count?</tspan></text>
+    <text class="branch" x="1899" y="1722">Yes: Continue Retrying</text>
+    <text class="branch" x="2743" y="1926">No</text>
+    <text class="label compact" x="2690" y="2049">Suspend and Isolate</text>
+    <text class="label" x="2105" y="2049">Manual Repair</text>
+    <text class="label" x="1584" y="2049">Batch Recovery</text>
+  </g>
+</svg>
