@@ -1,8 +1,30 @@
 # Task
 
-> When a business operation cannot be completed within a single request or transaction, the system needs to persist the outstanding work. A task encapsulates the responsibility for carrying out this work and determining whether its intended outcome has been achieved.
+## What Is a Task?
+
+**Task:** A task is a unit of work organized around a clearly defined objective, carried out by an accountable entity under agreed-upon rules and constraints, with determinable completion or termination criteria. Once activated, a task embodies an ongoing responsibility and commitment to act. This responsibility can be progressively discharged through the performance of required actions until the objective is achieved or the task is terminated in accordance with the agreed rules.
+
+### Examples
+
+A **Marketing Task** is an operational mechanism through which the platform incentivizes users to perform specific behaviors by offering rewards upon task completion. Based on its operational objectives, the platform establishes conditional **commitments** to provide benefits, explicitly informing users that completing specified **behaviors** within a defined timeframe, execution path, and set of rules will entitle them to corresponding **benefits**. Upon being presented with the commitment, users may choose whether to **participate**. Once accepted, the system continuously tracks their behavioral **progress** and evaluates objective achievement according to predefined rules. Upon achievement, the platform fulfills its commitment within budgetary and risk control constraints and may guide users toward subsequent tasks or new participation opportunities, forming a continuous incentive loop.
+
+> **Commitment Presentation → User Acceptance → Behavior Completion → Progress Measurement → Benefit Fulfillment**
+
+An **Enforcement Task** is a governance mechanism that imposes restrictions on the rights, privileges, and conduct of a specific entity in accordance with applicable governing rules, and modifies or terminates such restrictions in light of subsequent factual findings. Based on findings of fact and the determination of liability, the platform determines the grounds for enforcement, applicable sanctions, and adjudicative determinations, translating adjudicative determinations into enforceable restrictions. Once the enforcement action becomes effective, the system continuously monitors compliance with the enforcement action, remedial actions, and appellate determinations:
+
+- When remediation requirements are satisfied or the enforcement period expires, restrictions are lifted and entitlements are restored in accordance with applicable rules.
+- When an appeal is upheld or the original decision is corrected, the original enforcement measures are revoked or modified. Reversible impacts are rolled back, while irreversible impacts are addressed through compensation.
+- When requirements remain unmet, enforcement measures are maintained or escalated according to predefined rules.
 
 ## Single Task Node
+
+A **Task** is modeled as a set of executable activities organized around a clearly defined objective. It is defined by rules governing its objectives, constraints, and applicable entities. A task is triggered by a **Trigger**, evaluated through **Conditions**, and subsequently directed to the corresponding **Action** execution path.
+
+- **Trigger:** Defines when a task is triggered. Supported mechanisms include scheduled triggers, asynchronous event triggers, and synchronous invocations.
+- **Condition:** Defines the prerequisites and constraints that must be satisfied before task execution, such as whether the required progress threshold has been reached or whether specific expected behaviors have been completed.
+- **Action:** Describes the specific business operations to be performed during task execution, such as reward issuance, account suspension or reinstatement, user outreach, and phone calls.
+
+<img src="./assets/task-flow.svg" alt="task-flow" style="zoom:50%;" />
 
 ### Lifecycle
 
@@ -32,13 +54,13 @@ Instantiation is the process of creating an independent task instance for a spec
 
 #### Instantiation Idempotency Key
 
-> Transition Key = Event Attribute A + Event Attribute B + ...
+> Instantiation Dimension = Event Attribute A + Event Attribute B + ...
 >
-> Activity Instance ID = Transition Key + Activity ID + Turn
+> Instance Idempotency Key = Instantiation Dimension + Definition ID + Participation Sequence (Turn)
 
-1. **Transition Idempotency**. For the same transition request from the same user, regardless of how many times the system receives the request — for example, due to network retransmissions or repeated user interactions — the system must produce exactly one correct logical transition effect, such as a state update, points accrual, or reward issuance, without causing duplicate issuance or inconsistent states.
+1. **Instantiation Idempotency**. For the same transition request from the same user, regardless of how many times the system receives the request — for example, due to network retransmissions or repeated user interactions — the system must produce exactly one correct logical transition effect, such as a state update, points accrual, or reward issuance, without causing duplicate issuance or inconsistent states.
 
-2. **Transition Key**. The transition key is designed to ensure the idempotency of activity transitions. It consists of a combination of event attributes:
+2. **Instantiation Dimension**. It is designed to ensure the idempotency of activity transitions. It consists of a combination of event attributes:
 
    > Event Attribute A + Event Attribute B + ...
 
@@ -56,9 +78,69 @@ Repeat participation constraints are configured at the task definition level. Wh
 
 ![task-execution-limits](./assets/task-execution-limits.svg)
 
-### Triggering and Condition Evaluation
+#### Task Definition Snapshot
+
+As a general principle, an effective task commitment should not be arbitrarily weakened by subsequent changes to the platform's rules. Therefore, when a Task Instance is created, a snapshot of the Task Definition at the time of instantiation should be persisted to isolate the instance from subsequent definition changes. All subsequent progress evaluations and commitment fulfillment should be based on this snapshot. When modifying a Task Definition, two scenarios must be distinguished:
+
+1. **Changes Affecting New Instances Only:** Newly created Task Instances adopt the updated rules, while existing instances continue to operate under their original Task Definition snapshots.
+2. **Changes Affecting Existing Instances:** Updated rules also apply to designated existing Task Instances. These instances are notified to update their definition snapshots and adopt the new rules.
+
+Under exceptional circumstances, such as fraud, risk events, inventory depletion, or system failures, existing Task Instances may be adjusted or terminated. However, the handling procedures must be explicitly defined, and all subsequent remediation must be carried out in accordance with pre-established rules.
+
+#### Instantiation Entry Point: Candidate Retrieval and Filtering
+
+When creating a task for a specific entity, the initiating party submits a request through the instantiation entry point, specifying the target entity and the relevant business context. Upon receiving the entity identifier and contextual information, the instantiation entry point matches applicable Task Definitions and validates their creation criteria. The system retrieves candidate Task Definitions based on the entity and its current context, filters candidates that satisfy the instantiation conditions, and creates Task Instances upon successful validation.
+
+Retrieval and filtering criteria include the following:
+
+| Filter Category          | Filtering Criteria                                           |
+| ------------------------ | ------------------------------------------------------------ |
+| **Temporal and Spatial** | Time ranges and geographic regions. Supports all available regions, specified time periods, and designated dates. |
+| **Entity**               | Entity type and current status. Supports targeting specific entity segments. |
+| **Scenario**             | Originating entry point, event type, and business context. Validates whether the request originates from a scenario supported by the Task Definition. |
+| **Rules**                | Validates whether the entity and context satisfy the prerequisites and fine-grained conditions specified in the Task Definition. |
+| **Instance Constraints** | Prevents duplicate instantiation and enforces concurrency restrictions. |
+
+### Task Progress
+
+When a task consists of a set of outstanding activities organized around a clearly defined objective, task progress is used to describe what has already been accomplished, what remains outstanding, and what needs to be done next.
+
+#### Behavior Recording and Progress Calculation
+
+Progress calculation is an area of task management that is particularly susceptible to disputes. The system should not merely store a numerical progress value. It should also retain the relevant behavior records and calculation rationale so that task outcomes can be explained during progress inquiries, result verification, and audit tracing.
+
+Behavior records should remain as factual and objective as possible, avoiding premature association with any specific task. A single behavior or outcome may be relevant to multiple tasks. The system should first record the underlying facts and subsequently calculate progress independently according to the rules of each applicable task. When a previously credited outcome is revoked or the underlying facts are corrected, the system should adjust task progress according to the applicable rules and retain both the pre-adjustment and post-adjustment results, together with the reasons for the adjustment. This end-to-end process is typically supported by a Rule Engine and feature data. Progress calculation generally consists of four steps:
+
+1. Record underlying facts.
+2. Filter eligible records.
+3. Calculate progress.
+4. Generate explainable results.
+
+![fact-based-progress](./assets/fact-based-progress.svg)
+
+#### Progress Logs
+
+Progress calculation logs should contain at least the information listed below.
+
+| Information                        | Description                                                  |
+| ---------------------------------- | ------------------------------------------------------------ |
+| **Objective and Current Progress** | The current level of task completion and the remaining gap to the objective. |
+| **Credited Records**               | Behaviors and events that have been counted toward progress, together with their individual contributions. |
+| **Excluded Records**               | Behaviors and events that have not been counted toward progress, together with the specific reasons for exclusion. |
+| **Time Window**                    | The effective time range of the task.                        |
+| **Deduplication Rules**            | Whether the same behavior or event may be counted multiple times and how duplicate records are identified. |
+| **Node Attribution**               | The task node to which a behavior or outcome is attributed, and whether it may be counted across multiple nodes. |
+| **Rule Reference**                 | The rules and rule versions applied in the current calculation. |
 
 ### Action Execution
+
+Action execution is the process of performing operations in accordance with previously established commitments once the task conditions are satisfied. Conceptually, it consists of three stages: **Commitment, Eligibility Verification, and Fulfillment**.
+
+| Stage           | Description                                                  |
+| --------------- | ------------------------------------------------------------ |
+| **Commitment**  | The task presents and communicates the expected commitment before the entity participates. |
+| **Eligibility** | Upon receiving a triggering event, the system verifies whether the eligibility criteria for Action execution have been satisfied. |
+| **Fulfillment** | The platform performs the actual business operations to fulfill the established commitment. |
 
 #### Action Group Orchestration
 
@@ -100,13 +182,21 @@ The retry mechanism should address the following considerations:
 
 #### Action Callback Management
 
-## Reverse Workflow
+### Reverse Workflow
 
-### Reversibility of Action Effects
+A Reverse Workflow is the process of revoking, restoring, and correcting the execution outcomes of an original task.
 
-#### Reversible Actions: Rollback
+#### Reversibility of Action Effects
 
-#### Irreversible Actions: Compensation
+When a task executes an Action, it changes the state of business entities and their external environment. When the task is revoked, these existing impacts must be addressed. The appropriate handling mechanism depends on whether the impacts of the Action are reversible. If the original impact can be undone, a rollback should be performed. If it cannot be directly undone, compensation should be carried out through new Actions. A single Action may produce both reversible and irreversible impacts, which must be handled separately.
+
+**Reversible Impacts: Rollback**
+
+Rollback reverses the impacts produced by the original Action through corresponding inverse operations, restoring the business entity to a valid state in which it is no longer subject to the effects of that Action.
+
+**Irreversible Impacts: Compensation**
+
+When the impact of an original Action cannot be directly undone, compensation introduces new business operations to correct the resulting outcome or compensate for losses. Compensation cannot restore historical facts to a state in which the original Action never occurred. Instead, it ensures that subsequent outcomes conform to the applicable business commitments and agreements.
 
 ## Task Graph
 
@@ -118,7 +208,11 @@ A single task node can independently handle triggering, condition evaluation, an
 
 ![task-model-tca](./assets/task-model-tca.svg)
 
-A Task Graph Instance serves as the aggregate coordinator for all task node instances within its scope. Since many execution capabilities are already handled in a distributed manner at the node level, the task graph instance itself does not require extensive responsibilities. Its primary responsibilities include:
+### Lifecycle
+
+#### Task Graph Instance State Machine
+
+A **Task Graph Instance** serves as the aggregate coordinator for all task node instances within its scope. Since many execution capabilities are already handled in a distributed manner at the node level, the task graph instance itself does not require extensive responsibilities. Its primary responsibilities include:
 
 1. Execution Identity: Uniquely identifies a task graph execution and provides a common scope under which related task node instances are grouped.
 2. Instantiation Constraints: Enforces and records instantiation constraints at the graph level, including runtime idempotency information, participant identity, business associations, and the version of the task graph definition snapshot.
@@ -128,9 +222,9 @@ A Task Graph Instance serves as the aggregate coordinator for all task node inst
    - Centralized Termination: Stops all task nodes within the graph.
 5. Shared Information Storage: Persists identities, inputs, context, or references shared across the current graph execution.
 
-### State Machine
 
-The Task Graph state model is defined as follows:
+
+Given its relatively limited responsibilities, the Task Graph Instance has a comparatively simple state machine:
 
 - **Definition**: The normative definition of the task graph before it is bound to an execution participant and instantiated. Each participation in the task graph creates a corresponding runtime instance.
 - **Not Started**: The runtime instance has been created but has not yet started due to scheduling or other prerequisite conditions.
@@ -138,6 +232,15 @@ The Task Graph state model is defined as follows:
 - **Terminated**: The task graph has ceased progressing. When all internal nodes have either completed or become unable to proceed, the task graph automatically transitions to its terminal state.
 
 ![task-package-state-machine](./assets/task-package-state-machine.svg)
+
+#### Graph Node Instantiation
+
+Two approaches to Task Node instantiation are considered:
+
+| Approach                                           | Instantiation and Persistence Timing                         | Advantages                                                   | Disadvantages                                                |
+| -------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **Eager Instantiation (Full Instantiation)**       | All Tasks are instantiated and persisted synchronously when the Task Graph Instance is created. | Simplifies runtime execution logic, as subsequent operations only require state updates. Provides a complete view of the task structure directly from instance data. | High upfront overhead, increased initialization latency, and greater storage write pressure. May generate redundant instances that are never executed. Workflows that dynamically generate nodes based on runtime conditions require additional compensating handling. |
+| **Lazy Instantiation (Progressive Instantiation)** | Tasks are instantiated and persisted only when they are activated as the workflow progresses. | Lower storage and computational overhead. Better suited to workflows in which successor nodes are determined by runtime conditions. Provides greater flexibility. | More complex runtime control. Future Tasks cannot be directly observed from instance data and typically need to be inferred from the workflow definition. |
 
 ### Inter-Task Transitions and Communication
 
@@ -182,20 +285,14 @@ Tasks communicate by publishing messages of specified event types, triggering th
 
 ### Task Graph Execution Flow
 
-1. **Trigger Reception and Initial Task Selection**. Receive a Trigger and evaluate the triggering conditions against active tasks. Select the first eligible task along each execution path (i.e., the Head Task) to prevent duplicate processing along the same path.
+1. **Event Triggering and Task Filtering**. Receive an event message and retrieve the set of active task nodes that can be triggered by the event.
 
-2. **Computation and Completion Evaluation**. Invoke the rule engine for each Head Task to perform reward computation and evaluate whether its completion criteria have been satisfied. If the task has not been completed, proceed to the next Head Task. If it has been completed, advance execution toward its successor tasks.
+2. **Progress Calculation and Completion Evaluation**. Invoke the Rule Engine for each task node to calculate task progress. If the task has not met its completion conditions, proceed to the next task. If the completion conditions have been met, advance the workflow toward successor tasks.
 
-   This step is not required for remediation tasks.
-
-3. **Action Execution**. Retrieve the Actions configured for the current task node, resolve their execution parameters, and execute them sequentially or concurrently according to their configuration.
-
-   Persist the execution status of each Action independently, including successful execution, failure, and asynchronous waiting. Retryable failures transition the task node to Failed, Awaiting Retry, while unrecoverable failures transition it to Abnormally Terminated.
+3. **Action Execution**. Retrieve the Actions configured for the current task node, resolve their execution parameters, and execute them sequentially or concurrently according to their configuration. Persist the execution status of each Action independently, including successful execution, failure, and asynchronous waiting. Retryable failures transition the task node to Failed, Awaiting Retry, while unrecoverable failures transition it to Abnormally Terminated.
 
    Once all required Actions have satisfied the completion criteria, the task node transitions to Completed.
 
-4. **Successor Task Activation**. Upon task completion, iterate through its successor tasks and evaluate whether each successor currently satisfies its activation criteria.
-
-   If a successor is not eligible for activation, temporarily skip it. If its activation criteria are satisfied, transition it to an active state. If the successor task's triggering conditions can be satisfied immediately, execute it immediately.
+4. **Successor Activation and Workflow Advancement**. Upon task completion, recursively  iterate through its successor tasks and evaluate whether each successor currently satisfies its activation criteria. If a successor is not eligible for activation, temporarily skip it. If its activation criteria are satisfied, transition it to an active state. If the successor task's triggering conditions can be satisfied immediately, execute it immediately.
 
 5. **End of the Current Execution Round**. The current execution round concludes once all Head Tasks and their eligible downstream execution chains have been processed.

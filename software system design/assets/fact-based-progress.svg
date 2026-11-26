@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="4008" height="1368" viewBox="0 0 4008 1368" role="img" aria-labelledby="title" xml:lang="en">
+  <title id="title">Fact-Based Progress Calculation</title>
+  <defs>
+    <filter id="node-shadow" x="-12%" y="-22%" width="124%" height="154%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity=".14"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 30 30" markerWidth="30" markerHeight="30" refX="26" refY="15" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M5 3l21 12L5 27" fill="none" stroke="#456" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <circle id="fact" r="15"/>
+    <style>
+      text { fill: #123; font-family: "Times New Roman", Times, serif; }
+      .label { font-size: 62px; text-anchor: middle; }
+      .annotation { font-size: 46px; }
+      .rules-label { font-size: 54px; }
+      .node { fill: #fff; filter: url(#node-shadow); }
+      .arrow { fill: none; stroke: #456; stroke-width: 4; stroke-linecap: round; marker-end: url(#arrow); }
+      .dashed { stroke-dasharray: 13 17; }
+      .blue { fill: #579dce; }
+      .page-outline { stroke: #456; stroke-width: 4; stroke-linejoin: round; }
+      .page-line { fill: none; stroke: #abc; stroke-width: 4; stroke-linecap: round; }
+    </style>
+  </defs>
+
+  <rect width="4008" height="1368" fill="#fff"/>
+
+  <g aria-label="Fact Records">
+    <text x="118" y="96" font-size="57">Fact Records</text>
+    <g class="blue">
+      <circle cx="230" cy="284" r="27"/>
+      <circle cx="373" cy="208" r="27"/>
+      <circle cx="374" cy="358" r="27"/>
+      <circle cx="516" cy="284" r="27"/>
+    </g>
+    <path class="arrow" d="M591 285H930"/>
+    <text class="annotation" x="742" y="239" text-anchor="middle">Write</text>
+  </g>
+
+  <g aria-label="Fact Database">
+    <path d="M973 201h548v214a274 65 0 0 1-548 0Z" fill="#def"/>
+    <ellipse cx="1247" cy="201" rx="274" ry="67" fill="#bdf"/>
+    <path d="M973 415a274 65 0 0 0 548 0" fill="none" stroke="#579dce" stroke-width="4"/>
+    <text class="label" x="1247" y="356">Fact Database</text>
+
+    <path class="arrow" d="M1251 495V813"/>
+    <text class="annotation" x="1304" y="665">Read Facts</text>
+  </g>
+
+  <g aria-label="Task Rules">
+    <path class="page-outline" d="M1849 203h179l84 86v222q0 19-19 19h-244q-19 0-19-19V222q0-19 19-19Z" fill="#fff"/>
+    <path class="page-outline" d="M2028 203v67q0 19 19 19h65Z" fill="#def"/>
+    <path class="page-line" d="M1874 270h95m-95 34h81m-81 165h191"/>
+    <text class="label rules-label" x="1971" y="409">Task Rules</text>
+    <path class="arrow dashed" d="M1972 554V844"/>
+  </g>
+
+  <g aria-label="Progress Calculation">
+    <rect class="node" x="126" y="841" width="552" height="224" rx="40"/>
+    <rect class="node" x="977" y="841" width="552" height="224" rx="40"/>
+    <rect class="node" x="2502" y="841" width="552" height="224" rx="40"/>
+    <rect class="node" x="3354" y="841" width="552" height="224" rx="40"/>
+
+    <path d="M1809 811l313 108h93q11 0 11 11v46q0 11-11 11h-93l-313 108Z" fill="#fff0bf"/>
+    <path d="M1809 814v278" stroke="#e1cd8c" stroke-width="8" stroke-linecap="round"/>
+
+    <path class="arrow" d="M708 954H952"/>
+    <path class="arrow" d="M1556 954H1797"/>
+    <path class="arrow" d="M2236 954H2478"/>
+    <path class="arrow" d="M3084 954H3328"/>
+    <path class="arrow" d="M1973 1065V1245"/>
+
+    <g class="blue">
+      <use href="#fact" x="1626" y="896"/>
+      <use href="#fact" x="1674" y="896"/>
+      <use href="#fact" x="1722" y="896"/>
+    </g>
+    <use href="#fact" x="2356" y="896" fill="#398d6d"/>
+    <g fill="#c887a2">
+      <use href="#fact" x="1936" y="1306"/>
+      <use href="#fact" x="2013" y="1306"/>
+    </g>
+
+    <text class="label" x="402" y="975">Calculation Trigger</text>
+    <text class="label" x="1253" y="975">Retrieve Facts</text>
+    <text class="label" x="1970" y="975">Filter</text>
+    <text class="label" x="2778" y="975">Calculate Progress</text>
+    <text class="label" x="3630" y="975">Update Progress</text>
+  </g>
+</svg>
